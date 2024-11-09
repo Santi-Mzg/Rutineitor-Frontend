@@ -1,6 +1,11 @@
 import { createContext, useContext, useState } from "react"
 import { getWorkoutRequest, createOrUpdateWorkoutRequest, deleteWorkoutRequest } from '../api/workout.js';
 import { useAuth } from './AuthContext';
+import { formatDate } from '../utils/utils.js'
+
+
+const todayDate = new Date() // Obtiene la fecha de hoy
+todayDate.setHours(0, 0, 0, 0)
 
 export const WorkoutContext = createContext()
 
@@ -13,7 +18,7 @@ export const useWorkout = () => {
 export const WorkoutProvider = ({ children }) => {
     const { user } = useAuth()
     const [workout, setWorkout] = useState({
-        date: null,
+        date: formatDate(todayDate),
         type: null,
         blockList: [],
         comments: ''
@@ -21,6 +26,7 @@ export const WorkoutProvider = ({ children }) => {
 
     const getWorkout = async (date) => {
         try {
+            console.log("GWDATE "+date)
             const res = await getWorkoutRequest(date)
             setWorkout(({
                 date: date,
@@ -32,6 +38,7 @@ export const WorkoutProvider = ({ children }) => {
         } catch (error) {
             if (error.response?.data?.message==='Rutina no encontrada') {
                 const localWorkout = localStorage.getItem(date + user.username)
+
                 if (localWorkout) 
                     setWorkout(JSON.parse(localWorkout))
                 else {
@@ -48,7 +55,7 @@ export const WorkoutProvider = ({ children }) => {
 
     const createOrUpdateWorkout = async (workout) => {
         try {
-            console.log(JSON.stringify(workout))
+            console.log("SAVE "+JSON.stringify(workout))
             await createOrUpdateWorkoutRequest(workout)
         } catch (error) {
             console.log(error)
@@ -77,7 +84,7 @@ export const WorkoutProvider = ({ children }) => {
                 setWorkout,
                 getWorkout,
                 createOrUpdateWorkout,
-                deleteWorkout
+                deleteWorkout,
             }}>
             {children}
         </WorkoutContext.Provider>

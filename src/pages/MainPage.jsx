@@ -60,6 +60,7 @@ export default function MainPage() {
 
     console.log("wod "+JSON.stringify(workout))
 
+
     // Funciones de la rutina
     // Funciones para manejo de bloques
     const createWorkout = (option) => {
@@ -83,7 +84,7 @@ export default function MainPage() {
         }));
     }
 
-    const updateSeries = (blockIndex, option) => {
+    const updateSeries = (blockIndex, exerciseIndex, option) => {
         const updatedBlocks = [...workout.blockList]
         updatedBlocks[blockIndex].series = option
         setWorkout(prevWorkout => ({
@@ -221,13 +222,13 @@ export default function MainPage() {
 
     const pasteWorkout = () => {
         const prevWorkout = workout
-        const clipboardType = localStorage.getItem(user.username + "clipboard").type
-        const clipboardBlocklist = localStorage.getItem(user.username + "clipboard").blockList
+        const clipboardWorkoutJSON = localStorage.getItem(user.username + "clipboard")
+        const clipboardWorkout = clipboardWorkoutJSON ? JSON.parse(clipboardWorkoutJSON) : null
 
         setWorkout(prevWorkout => ({
             ...prevWorkout,
-            type: clipboardType ? JSON.parse(clipboardType) : prevWorkout.type,
-            blockList: clipboardBlocklist ? JSON.parse(clipboardBlocklist) : prevWorkout.blockList
+            type: clipboardWorkout ? clipboardWorkout.type : prevWorkout.type,
+            blockList: clipboardWorkout ? clipboardWorkout.blockList : prevWorkout.blockList
         }))
     }
 

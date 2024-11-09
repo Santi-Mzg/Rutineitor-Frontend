@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-const apiUrl = process.env.API_URL;
+const apiUrl = 'https://rutineitor-backend.onrender.com/api';
+const localUrl = 'http://localhost:3000/api';
 
 const instance = axios.create({
-    baseURL: process.env.NODE_ENV === 'production' 
-        ? apiUrl 
-        : 'http://localhost:3000/api',
+    baseURL: apiUrl,
     withCredentials: true
 });
 

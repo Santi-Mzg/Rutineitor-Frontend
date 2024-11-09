@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function DropDown({ modificable, blockIndex, exerciseIndex, onClick, options, text}) {
+
   const [expanded, setExpanded] = useState(false);
+  const containerRef = useRef(null);
 
   const toggleExpanded = () => {
     setExpanded(!expanded);
@@ -12,8 +14,22 @@ function DropDown({ modificable, blockIndex, exerciseIndex, onClick, options, te
     setExpanded(false);
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (containerRef.current && !containerRef.current.contains(event.target)) {
+            setExpanded(false);
+        }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+}, []);
+
   return (
-    <div className="nav-item dropdown">
+    <div ref={containerRef} className="nav-item dropdown">
       {modificable && 
       <button className="nav-link dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true" onClick={toggleExpanded} >{text}</button>
       || text}
