@@ -1,4 +1,4 @@
-import axios from './axios'
+import {localAPI, remoteAPI} from './axios'
 
 export const getWorkoutRequest = (date) => axios.get(`/workout/${date}`)
 

@@ -34,7 +34,6 @@ export default function MainPage() {
         //     return workout.blockList.length === 0 // True si no hay rutina, False si hay rutina
         return localState ? JSON.parse(localState) : true
     })  
-    console.log("mod "+modificable)
 
     // Hooks de actualización
     useEffect(() => {
@@ -52,7 +51,6 @@ export default function MainPage() {
     }, [workout, actualDate])
 
     useEffect(() => { // Guarda la rutina cuando se modifica
-        console.log("wod "+JSON.stringify(workout))
         localStorage.setItem(actualDate + user.username, JSON.stringify(workout))
     }, [workout])
 
@@ -60,6 +58,7 @@ export default function MainPage() {
         localStorage.setItem(actualDate + user.username + "modificable", JSON.stringify(modificable))
     }, [modificable])
 
+    console.log("wod "+JSON.stringify(workout))
 
     // Funciones de la rutina
     // Funciones para manejo de bloques

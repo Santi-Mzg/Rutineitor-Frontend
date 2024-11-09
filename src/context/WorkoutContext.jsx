@@ -48,6 +48,7 @@ export const WorkoutProvider = ({ children }) => {
 
     const createOrUpdateWorkout = async (workout) => {
         try {
+            console.log(JSON.stringify(workout))
             await createOrUpdateWorkoutRequest(workout)
         } catch (error) {
             console.log(error)
