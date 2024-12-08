@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react"
-import { getWorkoutRequest, createOrUpdateWorkoutRequest, deleteWorkoutRequest } from '../api/workout.js';
-import { useAuth } from './AuthContext';
+import { getWorkoutRequest, getCalendarWorkoutsRequest, createOrUpdateWorkoutRequest, deleteWorkoutRequest } from '../api/workout.js';
+import { useAuth } from './AuthContext.jsx';
 import { formatDate } from '../utils/utils.js'
 
 
@@ -26,8 +26,8 @@ export const WorkoutProvider = ({ children }) => {
 
     const getWorkout = async (date) => {
         try {
-            console.log("GWDATE "+date)
             const res = await getWorkoutRequest(date)
+            console.log("asdasd "+JSON.stringify(res.data))
             setWorkout(({
                 date: date,
                 type: res.data.type,
@@ -53,29 +53,41 @@ export const WorkoutProvider = ({ children }) => {
         }
     }
 
-    const createOrUpdateWorkout = async (workout) => {
-        try {
-            console.log("SAVE "+JSON.stringify(workout))
-            await createOrUpdateWorkoutRequest(workout)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const getCalendarWorkouts = async () => {
+    //     try {
+    //         const res = await getCalendarWorkoutsRequest()
+    //         console.log("CWODs "+JSON.stringify(res.data))
+    //         return res.data
+            
+    //     } catch (error) {
+    //         console.log(error)
+    //         return []
+    //     }
+    // }
 
-    const deleteWorkout = async (date) => {
-        try {
-            await deleteWorkoutRequest(date)
-        } catch (error) {
-            console.log(error)
-        }
+    // const createOrUpdateWorkout = async (workout) => {
+    //     try {
+    //         console.log("SAVE "+JSON.stringify(workout))
+    //         await createOrUpdateWorkoutRequest(workout)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
-        setWorkout(prevWorkout => ({
-            date: prevWorkout.date,
-            type: null,
-            blockList: [],
-            comments: ''
-        }))
-    }
+    // const deleteWorkout = async (date) => {
+    //     try {
+    //         await deleteWorkoutRequest(date)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+
+    //     setWorkout(prevWorkout => ({
+    //         date: prevWorkout.date,
+    //         type: null,
+    //         blockList: [],
+    //         comments: ''
+    //     }))
+    // }
 
     return (
         <WorkoutContext.Provider
@@ -83,8 +95,8 @@ export const WorkoutProvider = ({ children }) => {
                 workout,
                 setWorkout,
                 getWorkout,
-                createOrUpdateWorkout,
-                deleteWorkout,
+                // createOrUpdateWorkout,
+                // deleteWorkout,
             }}>
             {children}
         </WorkoutContext.Provider>

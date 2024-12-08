@@ -14,5 +14,5 @@ export const arraySeries = [1, 2, 3, 4, 5, 6].map(number => ({
 }))
 
 export const formatDate = date => {
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
 };

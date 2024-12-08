@@ -206,7 +206,49 @@ button:focus-visible {
   /* Text color */
 }
 
-.workout-day {
+.push-day {
+  background: #ff7b07;
+  color: white;
+  /* Text color */
+}
+
+.pull-day {
+  background: #fff307;
+  color: white;
+  /* Text color */
+}
+
+.leg-day {
+  background: #ff07b5;
+  color: white;
+  /* Text color */
+}
+
+.skill-day {
+  background: #ff7b07;
+  color: white;
+  /* Text color */
+}
+
+.mobility-day {
+  background: #07ffff;
+  color: white;
+  /* Text color */
+}
+
+.core-day {
+  background: #ff7b07;
+  color: white;
+  /* Text color */
+}
+
+.power-day {
+  background: #ff7b07;
+  color: white;
+  /* Text color */
+}
+
+.cardio-day {
   background: #ff7b07;
   color: white;
   /* Text color */

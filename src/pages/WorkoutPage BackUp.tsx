@@ -9,24 +9,40 @@ import { useNavigate } from 'react-router-dom';
 import { arrayTypes, formatDate } from '../utils/utils.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faPlus, faTrashAlt, faSave, faEdit, faCopy, faClipboard } from '@fortawesome/free-solid-svg-icons';
-import { useWorkout } from '../context/WorkoutContext.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
+import { ExerciseType, BlockType , WorkoutType } from '../lib/definitions.ts';
+import { createOrUpdateWorkout, deleteWorkout } from '../lib/actions.ts';
 
+interface WorkoutPageProps {
+    workouts: WorkoutType[];
+}
 
-export default function MainPage() {
-    
+export default function WorkoutPage( {workouts}: WorkoutPageProps ) {
+
     // Constantes
+    // const { workout, setWorkout, getWorkout, createOrUpdateWorkout, deleteWorkout } = useWorkout()
     const { user } = useAuth()
-    const { workout, setWorkout, getWorkout, createOrUpdateWorkout, deleteWorkout } = useWorkout()
     const { date } = useParams() // Obtiene la fecha pasada en la URL de la página
-
-
+    
     const todayDate = new Date() // Obtiene la fecha de hoy
     todayDate.setHours(0, 0, 0, 0)
 
     const actualDate = date ?? formatDate(todayDate) // Si date es undefined se iguala a todayDate
 
-    const [modificable, setModificable] = useState(() => {
+    const [workout, setWorkout] = useState<WorkoutType>({
+        date: formatDate(todayDate),
+        type: '',
+        blockList: [],
+        comments: '',
+        modificable: true
+    })
+    for(let i=0; i<workouts.length; i++){
+        console.log("CWOD "+JSON.stringify(workouts[i].date))
+    }
+
+    const foundWorkout = workouts.find(wod => wod.date === actualDate+"T00:00:00.000Z") 
+
+    const [modificable, setModificable] = useState<boolean>(() => {
         const localState = localStorage.getItem(actualDate + user.username + "modificable")
         // if(localState) 
         //     return JSON.parse(localState)
@@ -37,7 +53,23 @@ export default function MainPage() {
 
     // Hooks de actualización
     useEffect(() => {
-        getWorkout(actualDate);  // Invoca getWorkout cuando la página se carga o cambia la fecha
+        if (foundWorkout) {
+            setWorkout({
+                date: actualDate,
+                type: foundWorkout.type ?? "",
+                blockList: foundWorkout.blockList ?? [],
+                comments: foundWorkout.comments ?? "",
+                modificable: false
+            });
+        } else {
+            setWorkout({
+                date: actualDate,
+                type: "",
+                blockList: [],
+                comments: "",
+                modificable: true
+            });
+        }
     }, [actualDate]);  
 
     useEffect(() => {
@@ -58,7 +90,7 @@ export default function MainPage() {
         localStorage.setItem(actualDate + user.username + "modificable", JSON.stringify(modificable))
     }, [modificable])
 
-    console.log("wod "+JSON.stringify(workout))
+    // console.log("wod "+JSON.stringify(workout))
 
 
     // Funciones de la rutina
@@ -72,7 +104,7 @@ export default function MainPage() {
     }
 
     const addBlock = (blockIndex) => {
-        const newBlock = {
+        const newBlock: BlockType = {
             series: 3,
             exerciseList: [],
         }
@@ -102,7 +134,7 @@ export default function MainPage() {
     //     }))
     // }
 
-    const deleteBlock = (blockIndex) => {
+    const deleteBlock = (blockIndex: number) => {
         const updatedBlocks = [...workout.blockList]
         updatedBlocks.splice(blockIndex, 1)
         setWorkout(prevWorkout => ({
@@ -113,7 +145,7 @@ export default function MainPage() {
 
 
     // Funciones para manejo de ejercicios
-    const addExerciseToBlock = (blockIndex, exercise) => {
+    const addExerciseToBlock = (blockIndex: number, exercise: ExerciseType) => {
         const newExercise = {
             label: exercise.label,
             isometric: exercise.isometric,
@@ -129,7 +161,7 @@ export default function MainPage() {
         }))
     }
 
-    const addVolume = (blockIndex, exerciseIndex, volume) => {
+    const addVolume = (blockIndex: number, exerciseIndex: number, volume: string) => {
         const updatedBlocks = [...workout.blockList]
         updatedBlocks[blockIndex].exerciseList[exerciseIndex].volume = volume
         console.log("volume "+volume)
@@ -139,7 +171,7 @@ export default function MainPage() {
         }))
     }
 
-    const addWeight = (blockIndex, exerciseIndex, weight) => {
+    const addWeight = (blockIndex: number, exerciseIndex: number, weight: string) => {
         const updatedBlocks = [...workout.blockList]
         updatedBlocks[blockIndex].exerciseList[exerciseIndex].weight = weight
         setWorkout(prevWorkout => ({
@@ -148,7 +180,7 @@ export default function MainPage() {
         }))
     }
 
-    const moveExerciseDown = (blockIndex, exerciseIndex) => {
+    const moveExerciseDown = (blockIndex: number, exerciseIndex: number) => {
         if(exerciseIndex < workout.blockList[blockIndex].exerciseList.length - 1) {
             const updatedBlocks = [...workout.blockList]
             const updatedExercises = [...workout.blockList[blockIndex].exerciseList]
@@ -197,17 +229,17 @@ export default function MainPage() {
     }));
     };
 
-    const [expandedCommentPanel, setExpandedCommentPanel] = useState(false);
+    const [expandedCommentPanel, setExpandedCommentPanel] = useState<boolean>(false);
 
     const toggleCommentPanel = () => {
-        setExpandedCommentPanel(!expandedCommentPanel);
+        setExpandedCommentPanel((prevState => !prevState));
     };
 
     // Código de la seccion del calendario
-    const [expandedCalendarPanel, setExpandedCalendarPanel] = useState(false);
+    const [expandedCalendarPanel, setExpandedCalendarPanel] = useState<boolean>(false);
 
     const toggleCalendarPanel = () => {
-        setExpandedCalendarPanel(!expandedCalendarPanel);
+        setExpandedCalendarPanel((prevState => !prevState));
     };
 
     const saveWorkout = () => {
@@ -233,19 +265,10 @@ export default function MainPage() {
     }
 
     const cleanWorkout = () => {
+        localStorage.removeItem(workout.date + user.username)
+        localStorage.removeItem(workout.date + user.username + "modificable")
         deleteWorkout(actualDate)
         setModificable(true)
-        // setWorkout(prevWorkout => ({
-        //     ...prevWorkout,
-        //     type: null,
-        //     blockList: [],
-        //     modificable: true,
-        // }))
-        // setCommentText('')
-        // localStorage.removeItem(workout.date + "tipo")
-        // localStorage.removeItem(workout.date + "blocklist")
-        // localStorage.removeItem(workout.date + "modificable")
-        // localStorage.removeItem(workout.date + "comments")
     }
 
 
@@ -266,24 +289,40 @@ export default function MainPage() {
 
         // Check if the tile represents the current date
         const formattedDate = formatDate(date)
-
+        
         if (view === 'month' && formattedDate === workout.date) {
             // Return the class name for the selected date
             return 'selected-day';
         }
-        else if (view === 'month' && date.getTime() === todayDate.getTime()) {
+        else if (view === 'month' && formattedDate === formatDate(todayDate)) {
             // Return the class name for the current date
             return 'current-day';
         }
-        // else {
-        //     const localValue = localStorage.getItem(formattedDate + user.username + "type")
-        //     const parseValue = localValue ? JSON.parse(localValue) : ""
+        else {
+                const foundWorkout = workouts.find(workout => workout.date === formattedDate+"T00:00:00.000Z")
 
-        //     if (view === 'month' && parseValue && parseValue.length > 0) {
-        //         return 'workout-day';
-        //     }
-        // };
-        return null;
+                if (view === 'month' && foundWorkout) {
+                    switch (foundWorkout.type) {
+                        case 'Empuje':
+                            return 'push-day';
+                        case 'Tire':
+                            return 'pull-day';
+                        case 'Pierna':
+                            return 'leg-day';
+                        case 'Skills':
+                            return 'skill-day';
+                        case 'Movilidad':
+                            return 'mobility-day';
+                        case 'Core':
+                            return 'core-day';
+                        case 'Potencia':
+                            return 'power-day';
+                        case 'Cardio':
+                            return 'cardio-day';
+                }
+            }
+            return null;
+        }
     }
 
     return (
@@ -293,15 +332,15 @@ export default function MainPage() {
                 <div className='header'>
                     <h2>Entrenamiento del Día:</h2>
                     <h2 style={{ color: '#f3969a', fontWeight: 'bold', textAlign: 'center' }}>{workout.type}</h2>
-                    <button className='more-info-button' onClick={toggleCommentPanel}><FontAwesomeIcon icon={faComment} style={{fontSize: '30px', color: 'khaki'}} /></button>
+                    <button className='more-info-button' onClick={toggleCommentPanel}><FontAwesomeIcon icon={faComment} style={{fontSize: '30px', color: 'khaki', zIndex: 1}} /></button>
                 </div>
                 {expandedCommentPanel && 
                 <div>
                     <textarea
                         className='comment-panel'
-                        value={commentText}
+                        value={workout.comments}
                         onChange={handleChange}
-                        placeholder="Comentarios sobre la rutina..."
+                        placeholder="Comentarios..."
                     />
                 </div>
                 ||
@@ -361,4 +400,5 @@ export default function MainPage() {
         </>
     )
 }
+
 
