@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import Toolbar from '../components/Toolbar.jsx';
+import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faPlus, faTrashAlt, faSave, faEdit, faCopy, faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faSave, faEdit, faCopy, faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { createOrUpdateWorkout, deleteWorkout } from '../lib/actions.ts';
 import { formatDate } from '../utils/utils.js';
 
 
-export default function CalendarSection({ user, workout, setWorkout, workoutList, expandedCalendarPanel, setExpandedCalendarPanel}) {
+export default function CalendarSection({ user, workout, setWorkout, workoutList, setWorkoutList, expandedCalendarPanel, setExpandedCalendarPanel, activeStartDate, setActiveStartDate}) {
 
     // Código de la seccion del calendario
     const toggleCalendarPanel = () => {
@@ -17,12 +16,19 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
     };
 
     const saveWorkout = () => {
-        if (workout.modificable)
+        if (workout.modificable) {
             createOrUpdateWorkout(workout)
-        setWorkout(prevWorkout => ({
-            ...prevWorkout,
-            modificable: !prevWorkout.modificable
-        }))
+            
+            setWorkoutList(prevWorkoutList => {
+                const updatedWorkoutList = [...prevWorkoutList, workout];
+                return updatedWorkoutList;
+            });
+            console.log("WODLIST "+JSON.stringify(workoutList))
+        }
+        // setWorkout(prevWorkout => ({
+        //     ...prevWorkout,
+        //     modificable: !prevWorkout.modificable
+        // }))    
     }
 
     const copyWorkout = () => {
@@ -62,6 +68,14 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
             const formattedDate = formatDate(date)
             navigate(`/workout/${formattedDate}`)
         }
+    }
+
+    const handleViewChange = event => {
+        const dateActive = new Date(activeStartDate)
+        const dateParam = new Date(event.activeStartDate)
+
+        if(dateParam < dateActive)
+            setActiveStartDate(formatDate(event.activeStartDate))
     }
 
     const tileClassName = ({ date, view }) => {
@@ -119,6 +133,7 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
                 </div>
                 <Calendar
                     onClickDay={handleDateClick}
+                    onActiveStartDateChange={handleViewChange}
                     tileClassName={tileClassName}
                 />
             </div>  

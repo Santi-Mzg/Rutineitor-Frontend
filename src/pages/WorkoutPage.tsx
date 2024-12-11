@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Block from '../components/Block.jsx';
-import Toolbar from '../components/Toolbar.jsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
-import { useParams } from 'react-router-dom';
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useNavigate } from 'react-router-dom';
-import { arrayTypes, formatDate } from '../utils/utils.js'
+import { arrayTypes } from '../utils/utils.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faPlus, faTrashAlt, faSave, faEdit, faCopy, faClipboard } from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from '../context/AuthContext.jsx';
-import { ExerciseType, BlockType , WorkoutType } from '../lib/definitions.ts';
-import { createOrUpdateWorkout, deleteWorkout } from '../lib/actions.ts';
+import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { ExerciseType, BlockType } from '../lib/definitions.ts';
 
 export default function WorkoutPage( {user, workout, setWorkout, expandedCalendarPanel} ) {
 

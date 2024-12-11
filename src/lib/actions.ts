@@ -1,10 +1,9 @@
-import { deleteWorkoutRequest, createOrUpdateWorkoutRequest, getCalendarWorkoutsRequest } from "../api/workout"
+import { deleteWorkoutRequest, createOrUpdateWorkoutRequest, getCalendarWorkoutsRequest, fetchWorkoutsByTypeRequest} from "../api/workout"
 import { WorkoutType } from "./definitions";
 
-export const getCalendarWorkouts = async () => {
+export const getCalendarWorkouts = async (date: string) => {
     try {
-        const res = await getCalendarWorkoutsRequest()
-        console.log("CWODs "+JSON.stringify(res.data))
+        const res = await getCalendarWorkoutsRequest(date)
         
         return Array.isArray(res.data) ? res.data : [];
         
@@ -15,20 +14,34 @@ export const getCalendarWorkouts = async () => {
 }
 
 export const createOrUpdateWorkout = async (workout: WorkoutType) => {
-        try {
-            console.log("SAVE "+JSON.stringify(workout))
-            await createOrUpdateWorkoutRequest(workout)
+    try {
 
-        } catch (error) {
-            console.log(error)
-        }
+        const res = await createOrUpdateWorkoutRequest(workout)
+        console.log("SAVED "+JSON.stringify(res.data))            
+        
+        return res.data
+
+    } catch (error) {
+        console.log(error)
     }
+}
 
 export const deleteWorkout = async (date: string) => {
-        try {
-            await deleteWorkoutRequest(date)
+    try {
+        await deleteWorkoutRequest(date)
 
-        } catch (error) {
-            console.log(error)
-        }
+    } catch (error) {
+        console.log(error)
     }
+}
+
+export const fetchWorkoutsByType = async (type: string) => {
+    try {
+        const res = await fetchWorkoutsByTypeRequest(type)
+
+        return Array.isArray(res.data) ? res.data : [];
+    } catch (error) {
+        console.log(error)
+        return []
+    }
+}

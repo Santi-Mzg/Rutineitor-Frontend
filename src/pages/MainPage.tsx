@@ -1,20 +1,5 @@
-// import React from 'react';
-// import { getCalendarWorkouts } from '../lib/actions.ts';
-// import WorkoutPage from './WorkoutPage.tsx';
-// import { Workout } from '../lib/definitions.ts';
-
-// export default async function MainPage() {
-
-//     const workouts: Workout[] = await getCalendarWorkouts()
-
-//     return (
-//         <WorkoutPage workouts={workouts}/>
-//     )
-// }
-
-
 import React, { useEffect, useState } from 'react';
-import { getCalendarWorkouts } from '../lib/actions.ts';
+import { getCalendarWorkouts, fetchWorkoutsByType } from '../lib/actions.ts';
 import WorkoutPage from './WorkoutPage.tsx';
 import { WorkoutType } from '../lib/definitions.ts';
 import { useAuth } from '../context/AuthContext.jsx';
@@ -29,17 +14,18 @@ export default function MainPage() {
     const { user } = useAuth()
     const { date } = useParams() // Obtiene la fecha pasada en la URL de la página
     const todayDate = new Date() // Obtiene la fecha de hoy
+    const firstDayOfMonth = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1); // Primer día del mes actual
     const actualDate = date ?? formatDate(todayDate) // Si date es undefined se iguala a todayDate
-
+    
     const [loading, setLoading] = useState(true);
-    const [month, setMonth] = useState<string>((todayDate.getMonth() + 1).toString().padStart(2, '0'));
+    const [activeStartDate, setActiveStartDate] = useState<string>(formatDate(firstDayOfMonth));
     const [workoutList, setWorkoutList] = useState<WorkoutType[]>([]);
     const [workout, setWorkout] = useState<WorkoutType>({
         date: actualDate,
         type: '',
         blockList: [],
         comments: '',
-        modificable: false,
+        modificable: true,
     })
 
     // for(let i=0; i<workoutList.length; i++){
@@ -47,9 +33,9 @@ export default function MainPage() {
     // }
 
     useEffect(() => {
-        const fetchWorkouts = async () => {
+        const fetchWorkouts = async (date: string) => {
             try {
-                const data = await getCalendarWorkouts();
+                const data = await getCalendarWorkouts(date);
                 setWorkoutList(data); // Asigna los datos de los entrenamientos
             } catch (error) {
                 console.error('Error fetching workouts:', error);
@@ -57,44 +43,26 @@ export default function MainPage() {
                 setLoading(false);
             }
         };
-        fetchWorkouts();
-    }, []);
+        fetchWorkouts(activeStartDate);
+        
+    }, [activeStartDate]);
 
     // Actualiza el entrenamiento según la fecha actual
     useEffect(() => {
         const foundWorkout = workoutList.find((wod) => wod.date === `${actualDate}T00:00:00.000Z`);
+        
+        if(!foundWorkout) { // Si no se encuentra un entrenamiento para la fecha actual es porque es más antiguo que la fecha mas temprana de fetcheo por lo que la actualiza y hace refetch.
+            setActiveStartDate(actualDate)
+        }
 
         setWorkout({
             date: actualDate,
             type: foundWorkout?.type || '',
             blockList: foundWorkout?.blockList || [],
             comments: foundWorkout?.comments || '',
-            modificable: false,
+            modificable: foundWorkout ? false : true,
         });
     }, [actualDate, workoutList]);
-
-    // const foundWorkout = workoutList.find(wod => wod.date === actualDate+"T00:00:00.000Z") 
-
-    // useEffect(() => {
-    //     if (foundWorkout) {
-    //         setWorkout({
-    //             date: actualDate,
-    //             type: foundWorkout.type ?? "",
-    //             blockList: foundWorkout.blockList ?? [],
-    //             comments: foundWorkout.comments ?? "",
-    //             modificable: false,
-    //         });
-    //     } else {
-    //         setWorkout({
-    //             date: actualDate,
-    //             type: "",
-    //             blockList: [],
-    //             comments: "",
-    //             modificable: false,
-    //         });
-    //     }
-    // }, [actualDate]);  
-
 
 
     // Código de la seccion de comentarios
@@ -141,7 +109,7 @@ export default function MainPage() {
                 ||
                 <div>
                     <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
-                    <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel}/>
+                    <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
                 </div>
                 }
             </div>

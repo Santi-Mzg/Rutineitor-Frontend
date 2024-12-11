@@ -22,7 +22,12 @@ function Toolbar() {
                 <Link to="/workout">
                     <h1 className="navbar-brand">Rutineitor</h1>
                 </Link>
-                <div className="flex items-center ml-auto"> {/* Alinea a la izquierda */}
+                
+                <Link to="/workouts-by-type">
+                    <h2 className='text-lg text-gray-100 py-2 pr-2'>Filtrar Rutinas</h2>
+                </Link>
+
+                <div className="flex items-center ml-auto">
                     {isAuthenticated && (
                         <>
                             <h2 className='text-lg font-bold text-gray-600 py-2 pr-2'>{user.username}</h2>
