@@ -13,11 +13,11 @@ import ProgressChart from '../components/ProgressChart.tsx.tsx';
 export default function WorkoutsByExercise() {    
     const { user } = useAuth()
     const [selectedExercise, setSelectedExercise] = useState<string>(() => {
-        const localValue = localStorage.getItem(user.username+'selectedExercise')
+        const localValue = user ? localStorage.getItem(user.username+'selectedExercise') : null
         return localValue ? JSON.parse(localValue) : ''
     });
     const [workoutList, setWorkoutList] = useState<WorkoutType[]>(() => {
-        const localValue = localStorage.getItem(user.username+'workoutList')
+        const localValue = user ? localStorage.getItem(user.username+'workoutList') : null;
         return localValue ? JSON.parse(localValue) : []
     });
     const selectExercise = (option) => {
@@ -39,8 +39,10 @@ export default function WorkoutsByExercise() {
     }, [selectedExercise]);
 
     useEffect(() => {
-        localStorage.setItem(user.username+'workoutList', JSON.stringify(workoutList));
-        localStorage.setItem(user.username+'selectedExercise', JSON.stringify(selectedExercise));
+        if (user) {
+            localStorage.setItem(user.username+'workoutList', JSON.stringify(workoutList));
+            localStorage.setItem(user.username+'selectedExercise', JSON.stringify(selectedExercise));
+        }
     }, [workoutList]);
 
     return (

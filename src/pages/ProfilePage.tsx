@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-import { Card, CardHeader, CardTitle } from "../components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { PersonalInfo } from "./personal-info"
 import { ExerciseRecords } from "./exercise-records"
@@ -21,13 +20,13 @@ export default function ProfilePage() {
             <TabsTrigger value="milestones" className="text-xs sm:text-sm">Milestones</TabsTrigger>
           </TabsList>
           <TabsContent value="personal">
-            <PersonalInfo />
+            <PersonalInfo/>
           </TabsContent>
           <TabsContent value="records">
-            <ExerciseRecords />
+            <ExerciseRecords/>
           </TabsContent>
           <TabsContent value="milestones">
-            <Milestones />
+            <Milestones/>
           </TabsContent>
         </Tabs>
       </div>

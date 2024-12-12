@@ -11,11 +11,11 @@ import { useAuth } from '../context/AuthContext.jsx';
 export default function WorkoutsByType() {    
     const { user } = useAuth()
     const [selectedType, setSelectedType] = useState<string>(() => {
-        const localValue = localStorage.getItem(user.username+'selectedType')
+        const localValue = user ? localStorage.getItem(user.username+'selectedType') : null
         return localValue ? JSON.parse(localValue) : ''
     });
     const [workoutList, setWorkoutList] = useState<WorkoutType[]>(() => {
-        const localValue = localStorage.getItem(user.username+'workoutList')
+        const localValue = user ? localStorage.getItem(user.username+'workoutList') : null
         return localValue ? JSON.parse(localValue) : []
     });
     const selectType = (option) => {
@@ -38,8 +38,10 @@ export default function WorkoutsByType() {
     }, [selectedType]);
 
     useEffect(() => {
-        localStorage.setItem(user.username+'workoutList', JSON.stringify(workoutList));
-        localStorage.setItem(user.username+'selectedType', JSON.stringify(selectedType));
+        if(user) {
+            localStorage.setItem(user?.username+'workoutList', JSON.stringify(workoutList));
+            localStorage.setItem(user?.username+'selectedType', JSON.stringify(selectedType));
+        }
     }, [workoutList]);
 
     return (

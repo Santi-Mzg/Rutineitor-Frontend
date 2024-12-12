@@ -11,7 +11,7 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function MainPage() {
-    const { user } = useAuth()
+    const { user } = useAuth() 
     const { date } = useParams() // Obtiene la fecha pasada en la URL de la página
     const todayDate = new Date() // Obtiene la fecha de hoy
     const firstDayOfMonth = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1); // Primer día del mes actual

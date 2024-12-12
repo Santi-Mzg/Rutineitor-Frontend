@@ -1,3 +1,12 @@
+export type UserType = {
+    username: string;
+    email: string;
+    age: string;
+    weight: string;
+    height: string;
+    goal: string;
+}
+
 export type ExerciseType = {
     label: string;
     isometric: boolean;

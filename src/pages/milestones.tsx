@@ -15,8 +15,11 @@ import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
 import { Progress } from "../components/ui/progress"
 import React from 'react'
+import { useAuth } from '../context/AuthContext'
 
 export function Milestones() {
+  const { user } = useAuth()
+  
   const [milestones, setMilestones] = useState([
     { goal: "200kg Deadlift", current: 140, target: 200, deadline: "2024-06-30" },
     { goal: "100kg Bench Press", current: 80, target: 100, deadline: "2024-06-30" },

@@ -27,11 +27,11 @@ export default function LoginPage() {
                 ))}
                 <h1 className='text-2xl font-bold text-white text-center'>Iniciar sesión</h1>
                 <form onSubmit={onSubmit}>
-                    <input type='text'
-                        {...register('username', { required: true })}
+                    <input type='email'
+                        {...register('email', { required: true })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         placeholder='Nombre de usuario' />
-                    {errors.username && <p className='text-red-500'>Ingrese un nombre de usuario</p>}
+                    {errors.email && <p className='text-red-500'>Ingrese un email válido</p>}
 
                     <input
                         type='password'
