@@ -1,11 +1,6 @@
 {
   "exercises": [
     {
-      "label": "Adv Toes to Bar",
-      "isometric": false,
-      "weighted": false
-    },
-    {
       "label": "Aperturas Anillas",
       "isometric": false,
       "weighted": false
@@ -416,6 +411,11 @@
       "weighted": false
     },
     {
+      "label": "L-sit Toes to Bar",
+      "isometric": false,
+      "weighted": true
+    },
+    {
       "label": "Limpiaparabrisas",
       "isometric": false,
       "weighted": false
@@ -447,6 +447,11 @@
     },
     {
       "label": "Peso Muerto",
+      "isometric": false,
+      "weighted": true
+    },
+    {
+      "label": "Peso Muerto en Déficit",
       "isometric": false,
       "weighted": true
     },

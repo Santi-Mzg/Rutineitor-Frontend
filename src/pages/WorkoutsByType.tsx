@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { WorkoutType } from '../lib/definitions.ts';
-import { arrayTypes } from '../utils/utils.js';
+import { arrayTypes } from '../lib/utils.js';
 import Toolbar from '../components/Toolbar.jsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
 import WorkoutCard from '../components/WorkoutCard.jsx';
@@ -8,7 +8,7 @@ import { fetchWorkoutsByType } from '../lib/actions.ts';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
-export default function WorkoutFilter() {    
+export default function WorkoutsByType() {    
     const { user } = useAuth()
     const [selectedType, setSelectedType] = useState<string>(() => {
         const localValue = localStorage.getItem(user.username+'selectedType')

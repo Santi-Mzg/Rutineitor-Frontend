@@ -2,7 +2,7 @@ import React from 'react';
 import DropDown from "./DropDown";
 import DropDownWithSearch from "./DropDownWithSearch";
 import TextArea from './TextArea.jsx';
-import { exercises } from '../utils/exercises.json';
+import { exercises } from '../lib/exercises.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp, faTrash } from '@fortawesome/free-solid-svg-icons';
 

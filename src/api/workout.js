@@ -9,3 +9,6 @@ export const createOrUpdateWorkoutRequest = (workout) => axios.post(`/workout`, 
 export const deleteWorkoutRequest = (date) => axios.delete(`/workout/${date}`)
 
 export const fetchWorkoutsByTypeRequest = (type) => axios.get(`/workout-type-list/${type}`)
+
+export const fetchWorkoutsByExerciseRequest = (exercise) => axios.get(`/workout-exercise-list/${exercise}`)
+

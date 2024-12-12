@@ -1,6 +1,4 @@
 import React from 'react';
-import { formatDate } from '../utils/utils.js';
-
 
 export default function WorkoutCard({ workout }) {
 

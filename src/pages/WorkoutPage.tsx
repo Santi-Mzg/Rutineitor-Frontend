@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Block from '../components/Block.jsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
 import 'react-calendar/dist/Calendar.css';
-import { arrayTypes } from '../utils/utils.js'
+import { arrayTypes } from '../lib/utils.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ExerciseType, BlockType } from '../lib/definitions.ts';

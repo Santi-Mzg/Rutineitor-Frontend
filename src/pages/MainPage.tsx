@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getCalendarWorkouts, fetchWorkoutsByType } from '../lib/actions.ts';
+import { getCalendarWorkouts } from '../lib/actions.ts';
 import WorkoutPage from './WorkoutPage.tsx';
 import { WorkoutType } from '../lib/definitions.ts';
 import { useAuth } from '../context/AuthContext.jsx';
 import CalendarSection from './CalendarSection.tsx';
 import { useParams } from 'react-router-dom';
-import { formatDate } from '../utils/utils.js';
+import { formatDate } from '../lib/utils.ts';
 import Toolbar from '../components/Toolbar.jsx';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
