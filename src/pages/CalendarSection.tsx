@@ -18,17 +18,15 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
     const saveWorkout = () => {
         if (workout.modificable) {
             createOrUpdateWorkout(workout)
-            
+            setWorkout(prevWorkout => ({
+                ...prevWorkout,
+                modificable: false
+            }))  
             setWorkoutList(prevWorkoutList => {
                 const updatedWorkoutList = [...prevWorkoutList, workout];
                 return updatedWorkoutList;
             });
-            console.log("WODLIST "+JSON.stringify(workoutList))
         }
-        // setWorkout(prevWorkout => ({
-        //     ...prevWorkout,
-        //     modificable: !prevWorkout.modificable
-        // }))    
     }
 
     const copyWorkout = () => {
@@ -51,8 +49,15 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
         deleteWorkout(workout.date)
         setWorkout(prevWorkout => ({
             ...prevWorkout,
-            modificable: true
+            type: '',
+            blockList: [],
+            modificable: true,
+            comments: ''
         }))
+        setWorkoutList(prevWorkoutList => {
+            const updatedWorkoutList = [...prevWorkoutList].filter(wod => wod.date !== workout.date);
+            return updatedWorkoutList;
+        });
     }
 
 
@@ -93,7 +98,7 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
                 return 'current-day';
             }
             else {
-                    const foundWorkout = workoutList.find(workout => workout.date === formattedDate+"T00:00:00.000Z")
+                    const foundWorkout = workoutList.find(workout => workout.date.includes(formattedDate))
 
                     if (foundWorkout) {
                         switch (foundWorkout.type) {

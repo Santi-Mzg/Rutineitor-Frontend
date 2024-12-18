@@ -8,7 +8,6 @@ import { Milestones } from "./milestones"
 import { useAuth } from "../context/AuthContext"
 
 export default function ProfilePage() {
-    const { user } = useAuth()
 
   return (
     <div className="min-h-screen bg-[#98D8C8] p-4 md:p-8">

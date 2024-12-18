@@ -34,7 +34,7 @@ export function PersonalInfo() {
               <Input
                 {...register('username')}
                 id="username"
-                value={user ? user.username : ''}
+                defaultValue={user ? user.username : ''}
                 readOnly={!isEditing}
               />
             </div>
@@ -44,7 +44,7 @@ export function PersonalInfo() {
                 <Input
                   {...register('age')}
                   id="age"
-                  value={user ? user.age : ''}
+                  defaultValue={user ? user.age : ''}
                   readOnly={!isEditing}
                 />
               </div>
@@ -53,7 +53,7 @@ export function PersonalInfo() {
                 <Input
                   {...register('weight')}
                   id="weight"
-                  value={user ? user.weight : ''}
+                  defaultValue={user ? user.weight : ''}
                   readOnly={!isEditing}
                 />
               </div>
@@ -62,7 +62,7 @@ export function PersonalInfo() {
                 <Input
                   {...register('height')}
                   id="height"
-                  value={user ? user.height : ''}
+                  defaultValue={user ? user.height : ''}
                   readOnly={!isEditing}
                 />
               </div>
@@ -72,7 +72,7 @@ export function PersonalInfo() {
               <Input
                 {...register('goal')}
                 id="goal"
-                value={user ? user.goal : ''}
+                defaultValue={user ? user.goal : ''}
                 readOnly={!isEditing}
               />
             </div>

@@ -7,13 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ExerciseType, BlockType } from '../lib/definitions.ts';
 
-export default function WorkoutPage( {user, workout, setWorkout, expandedCalendarPanel} ) {
+export default function WorkoutPage( {user, workout, setWorkout, setWorkoutList, expandedCalendarPanel} ) {
 
     useEffect(() => { // Guarda la rutina cuando se modifica
         localStorage.setItem(workout.date + user.username, JSON.stringify(workout))
     }, [workout])
 
-    console.log("wod "+JSON.stringify(workout))
 
     // Funciones de la rutina
     // Funciones para manejo de bloques
@@ -46,15 +45,6 @@ export default function WorkoutPage( {user, workout, setWorkout, expandedCalenda
             blockList: updatedBlocks
         }))
     }
-
-    // const updateExerciseList = (blockIndex, newExerciseList) => {
-    //     const updatedBlocks = [...workout.blockList]
-    //     updatedBlocks[blockIndex].exerciseList = newExerciseList
-    //     setWorkout(prevWorkout => ({
-    //         ...prevWorkout,
-    //         blockList: updatedBlocks
-    //     }))
-    // }
 
     const deleteBlock = (blockIndex) => {
         const updatedBlocks = [...workout.blockList]

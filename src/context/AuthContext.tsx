@@ -27,7 +27,7 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState<UserType | null>(null)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [errors, setErrors] = useState<string[]>([])
     const [loading, setLoading] = useState(true)
@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const signin = async (user: UserType) => {
         try {
             const res = await loginRequest(user)
+            console.log("res.data "+JSON.stringify(res.data))
             setUser(res.data)
             setIsAuthenticated(true)
         } catch (error) {

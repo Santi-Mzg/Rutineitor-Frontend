@@ -28,10 +28,6 @@ export default function MainPage() {
         modificable: true,
     })
 
-    // for(let i=0; i<workoutList.length; i++){
-    //     console.log("CWOD "+JSON.stringify(workoutList[i].date))
-    // }
-
     useEffect(() => {
         const fetchWorkouts = async (date: string) => {
             try {
@@ -49,18 +45,26 @@ export default function MainPage() {
 
     // Actualiza el entrenamiento según la fecha actual
     useEffect(() => {
-        const foundWorkout = workoutList.find((wod) => wod.date === `${actualDate}T00:00:00.000Z`);
+        const localWorkout = localStorage.getItem(actualDate + user?.username || '');
+        let foundWorkout = localWorkout ? JSON.parse(localWorkout) : null;
+        const actualDateDATE = new Date(actualDate)
+        const activeStartDateDATE = new Date(activeStartDate)        
         
-        if(!foundWorkout) { // Si no se encuentra un entrenamiento para la fecha actual es porque es más antiguo que la fecha mas temprana de fetcheo por lo que la actualiza y hace refetch.
-            setActiveStartDate(actualDate)
+        if(!foundWorkout) { // Si no se encuentra un entrenamiento para la fecha actual en local storage se busca en la lista fetcheada
+            foundWorkout = workoutList.find((wod) => wod.date.includes(actualDate));        
+
+            if(!foundWorkout && actualDateDATE < activeStartDateDATE) // Si se sigue sin encontrar y es más antiguo que la fecha mas temprana de fetcheo se actualiza y hace refetch.
+                setActiveStartDate(actualDate)
         }
+        console.log("FOUND "+JSON.stringify(foundWorkout))
+        console.log("WODSLIST "+JSON.stringify(workoutList))
 
         setWorkout({
             date: actualDate,
             type: foundWorkout?.type || '',
             blockList: foundWorkout?.blockList || [],
             comments: foundWorkout?.comments || '',
-            modificable: foundWorkout ? false : true,
+            modificable: foundWorkout?.modificable && true,
         });
     }, [actualDate, workoutList]);
 
@@ -108,7 +112,7 @@ export default function MainPage() {
                 </div>
                 ||
                 <div>
-                    <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
+                    <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel}/>
                     <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
                 </div>
                 }
