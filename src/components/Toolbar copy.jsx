@@ -18,22 +18,22 @@ function Toolbar() {
 
     return (
         <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-            <div className="container-fluid">
+            <div className="container-fluid flex justify-between items-center mx-auto ">
                 <Link to="/workout">
-                    <h1 className="navbar-brand">Rutineitor</h1>
-                </Link>
-                
-                <Link to="/workouts-by-type">
-                    <h2 className='text-lg text-gray-100 py-2 pr-2'>Filtrar Rutinas por Tipo</h2>
+                    <h1 className="navbar-brand w-full">Rutineitor</h1>
                 </Link>
 
-                <Link to="/workouts-by-exercise">
-                    <h2 className='text-lg text-gray-100 py-2 pr-2'>Filtrar Rutinas por Ejercicio</h2>
-                </Link>
+                {isAuthenticated && (
+                    <>
+                        <Link to="/workouts-by-type">
+                            <h2 className='text-lg text-gray-100 py-2 pr-2'>Tipo</h2>
+                        </Link>
 
-                <div className="flex items-center ml-auto">
-                    {isAuthenticated && (
-                        <>
+                        <Link to="/workouts-by-exercise">
+                            <h2 className='text-lg text-gray-100 py-2 pr-2'>Ejercicio</h2>
+                        </Link>
+
+                        <div className="flex items-center ml-auto">
                             <Link to="/profile">
                                 <h2 className='text-lg font-bold text-gray-600 py-2 pr-2'>{user.username}</h2>
                             </Link>
@@ -42,9 +42,9 @@ function Toolbar() {
                                     <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '30px' }} />
                                 </button>
                             </form>
-                        </>
-                    )}
-                 </div>
+                        </div>
+                    </>
+                )}
             </div>
         </nav>
     )

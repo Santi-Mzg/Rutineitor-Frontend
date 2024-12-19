@@ -15,7 +15,6 @@ interface ProgressData {
 }
 
 const ProgressChart: React.FC<{ exercise: string }> = ({ exercise }) => {
-//   const [chartData, setChartData] = useState<ChartData[]>([]);
   const [chartData, setChartData] = useState<Record<string, Record<number, number>>>({});
   const [labels, setLabels] = useState<string[]>([]);
   const [maxWeight, setMaxWeight] = useState<number | null>(null);
@@ -36,7 +35,6 @@ const ProgressChart: React.FC<{ exercise: string }> = ({ exercise }) => {
                 }))
             )
           );
-         console.log("data "+JSON.stringify(data))
 
         // Procesar los datos
         const groupedByDateAndReps = data.reduce((acc, item) => {
@@ -68,25 +66,6 @@ const ProgressChart: React.FC<{ exercise: string }> = ({ exercise }) => {
     fetchExerciseProgress();
   }, [exercise]);
 
-//   const datasets = Object.keys(chartData).flatMap((date) =>
-//     Object.keys(chartData[date]).map((reps) => {
-//       const weightData = labels.map((label) => chartData[label]?.[parseInt(reps, 10)] || null);
-
-//       return {
-//         label: `Reps ${reps}`,
-//         data: weightData,
-//         borderColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 1)`,
-//         backgroundColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, 0.2)`,
-//         borderWidth: 1,
-//         pointStyle: weightData.map((weight) =>
-//           weight === maxWeight ? "rectRot" : "circle"
-//         ), // Usa triángulo para el mayor peso
-//         pointRadius: weightData.map((weight) =>
-//           weight === maxWeight ? 12 : 8
-//         ), // Aumenta el tamaño del símbolo
-//       };
-//     })
-//   );
 const datasets = Object.keys(chartData)
   .reduce((acc, date) => {
     Object.entries(chartData[date]).forEach(([reps, weight]) => {
@@ -119,15 +98,6 @@ const resultDatasets = Object.entries(datasets).map(([reps, weightData]) => {
     ),
   };
 });
-
-console.log(resultDatasets);
-
-
- console.log("chartData "+JSON.stringify(chartData))
- console.log("labels "+JSON.stringify(labels))
-
- console.log("dataset "+JSON.stringify(datasets))
- console.log("dataset "+JSON.stringify(resultDatasets))
 
   const data = {
     labels,

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { WorkoutType } from '../lib/definitions.ts';
 import { arrayTypes } from '../lib/utils.js';
-import Toolbar from '../components/Toolbar.jsx';
+import Toolbar from '../components/Toolbar.tsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
-import WorkoutCard from '../components/WorkoutCard.jsx';
 import { fetchWorkoutsByType } from '../lib/actions.ts';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
+import { Card, CardContent } from '../components/ui/card.tsx';
 
 export default function WorkoutsByType() {    
     const { user } = useAuth()
@@ -45,24 +45,34 @@ export default function WorkoutsByType() {
     }, [workoutList]);
 
     return (
-        <>
+        <div className='w-screen'>
             <Toolbar />
-            <DropDownWithSearch onChange={selectType} options={arrayTypes} text="Elegir Tipo..." /> 
-            <ul className='list'>
-                {(workoutList).map((workout, index) => {
-                    return (
-                        <li key={index} style={{ marginBottom: '30px' }}>
-                            <Link to={`/workout/${(workout.date).slice(0, 10)}`} style={{ textDecoration: 'none' }}>
-                                <div className='btn-group' style={{padding: '10px', margin: '5px'}}>
-                                    <WorkoutCard
-                                        workout={workout} 
-                                    />
+            <div className='parent-section py-4 flex-col'>
+                <div className='header'>
+                    {selectedType!=='' && <DropDownWithSearch onChange={selectType} options={arrayTypes} text="Elegir Ejercicio..." />}
+                    <h2 className='py-2' style={{ color: '#f3969a', fontWeight: 'bold', textAlign: 'center' }}>{selectedType}</h2>
+                </div>
+                <Card>
+                    <CardContent>
+                        <div className="space-y-4">
+                            {workoutList.map((workout, index) => (
+                                <div
+                                    key={index}
+                                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-lg border p-4 space-y-2 sm:space-y-0"
+                                    >
+                                    <div>
+                                        <h4 className="font-semibold">{(workout.date).slice(0, 10)}</h4>
+                                    </div>
+                                    <div className="text-left sm:text-right flex items-center space-x-2">
+                                        <p className="font-semibold">{workout.blockList[0].exerciseList[0].weight} kg x</p>
+                                        <p className="text-sm text-gray-500">{workout.blockList[0].exerciseList[0].volume} reps</p>
+                                    </div>
                                 </div>
-                            </Link>
-                        </li>
-                    )
-                })}
-            </ul>
-        </>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
     )
 }

@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import CalendarSection from './CalendarSection.tsx';
 import { useParams } from 'react-router-dom';
 import { formatDate } from '../lib/utils.ts';
-import Toolbar from '../components/Toolbar.jsx';
+import Toolbar from '../components/Toolbar.tsx';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -45,8 +45,9 @@ export default function MainPage() {
 
     // Actualiza el entrenamiento según la fecha actual
     useEffect(() => {
-        const localWorkout = localStorage.getItem(actualDate + user?.username || '');
-        let foundWorkout = localWorkout ? JSON.parse(localWorkout) : null;
+        // const localWorkout = localStorage.getItem(actualDate + user?.username || '');
+        let foundWorkout
+        //  = localWorkout ? JSON.parse(localWorkout) : null;
         const actualDateDATE = new Date(actualDate)
         const activeStartDateDATE = new Date(activeStartDate)        
         
@@ -93,7 +94,7 @@ export default function MainPage() {
     }
 
     return (
-        <>
+        <div className='w-screen'>
             <Toolbar />
             <div className='parent-section'>
                 <div className='header'>
@@ -112,11 +113,11 @@ export default function MainPage() {
                 </div>
                 ||
                 <div>
-                    <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel}/>
+                    <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
                     <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
                 </div>
                 }
             </div>
-        </>
+        </div>
     )
 }

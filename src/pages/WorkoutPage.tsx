@@ -7,12 +7,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ExerciseType, BlockType } from '../lib/definitions.ts';
 
-export default function WorkoutPage( {user, workout, setWorkout, setWorkoutList, expandedCalendarPanel} ) {
+export default function WorkoutPage( {user, workout, setWorkout, expandedCalendarPanel} ) {
 
     useEffect(() => { // Guarda la rutina cuando se modifica
         localStorage.setItem(workout.date + user.username, JSON.stringify(workout))
     }, [workout])
 
+    useEffect(() => {
+        const savedWorkout = localStorage.getItem(workout.date + user.username);
+        if (savedWorkout) {
+            setWorkout(JSON.parse(savedWorkout));
+        }
+    }, []);
 
     // Funciones de la rutina
     // Funciones para manejo de bloques
