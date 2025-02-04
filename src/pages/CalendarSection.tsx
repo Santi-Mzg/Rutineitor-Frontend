@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useNavigate } from 'react-router-dom';
@@ -60,7 +60,6 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
         });
     }
 
-
     // Función del calendario
     const navigate = useNavigate()
     const todayDate = new Date()
@@ -74,10 +73,11 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
             navigate(`/workout/${formattedDate}`)
         }
     }
+    const [dateParam, setDateParam] = useState(new Date())
 
     const handleViewChange = event => {
         const dateActive = new Date(activeStartDate)
-        const dateParam = new Date(event.activeStartDate)
+        setDateParam(new Date(event.activeStartDate))
 
         if(dateParam < dateActive)
             setActiveStartDate(formatDate(event.activeStartDate))
@@ -128,7 +128,7 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
     return (
         <>
             {expandedCalendarPanel &&
-            <div className='calendar-panel'>
+            <div className='calendar-panel min-h-screen flex flex-col justify-end'>
                 <button className="panel-button" type="button" onClick={toggleCalendarPanel} >{"v"}</button>
                 <div className='btn-group text-white bg-white' style={{ width: '50vh'}}>
                     <button className="big-button" type="button" onClick={saveWorkout}><FontAwesomeIcon icon={(workout.modificable && faSave || faEdit)} style={{fontSize: '30px'}} /></button>
@@ -138,6 +138,7 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
                 </div>
                 <Calendar
                     onClickDay={handleDateClick}
+                    activeStartDate={dateParam}
                     onActiveStartDateChange={handleViewChange}
                     tileClassName={tileClassName}
                 />
