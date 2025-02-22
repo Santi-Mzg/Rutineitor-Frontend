@@ -6,11 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faSave, faEdit, faCopy, faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { createOrUpdateWorkout, deleteWorkout } from '../lib/actions/workout.ts';
 import { formatDate } from '../lib/utils.ts';
+import { useAuth } from '../context/AuthContext.tsx';
 
 
-export default function CalendarSection({ user, workout, setWorkout, workoutList, setWorkoutList, expandedCalendarPanel, setExpandedCalendarPanel, activeStartDate, setActiveStartDate}) {
+export default function UserCalendarSection({ userClient, workout, setWorkout, workoutList, setWorkoutList, expandedCalendarPanel, setExpandedCalendarPanel, activeStartDate, setActiveStartDate}) {
 
-    
+    const { user } = useAuth() 
+
     // Código de la seccion del calendario
     const toggleCalendarPanel = () => {
         setExpandedCalendarPanel((prevState => !prevState));
@@ -20,10 +22,9 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
         setWorkout(prevWorkout => ({
             ...prevWorkout,
             modificable: !prevWorkout.modificable
-        })) 
-
+        }))  
         if (workout.modificable && workout.type !== '' && workout.blockList[0].exerciseList.length > 0) {
-            createOrUpdateWorkout(workout, user._id)
+            createOrUpdateWorkout(workout, userClient._id)
             
             setWorkoutList(prevWorkoutList => {
                 const updatedWorkoutList = [...prevWorkoutList, workout];
@@ -33,11 +34,11 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
     }
 
     const copyWorkout = () => {
-        localStorage.setItem(user.username + "clipboard", JSON.stringify(workout))
+        localStorage.setItem(user?.username + "clipboard", JSON.stringify(workout))
     }
 
     const pasteWorkout = () => {
-        const clipboardWorkoutJSON = localStorage.getItem(user.username + "clipboard")
+        const clipboardWorkoutJSON = localStorage.getItem(user?.username + "clipboard")
         const clipboardWorkout = clipboardWorkoutJSON ? JSON.parse(clipboardWorkoutJSON) : null
 
         setWorkout(prevWorkout => ({
@@ -48,8 +49,8 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
     }
 
     const cleanWorkout = () => {
-        localStorage.removeItem(workout.date + user.username)
-        deleteWorkout(workout.date, user._id)
+        localStorage.removeItem(workout.date + userClient.username)
+        deleteWorkout(workout.date, userClient._id)
         setWorkout(prevWorkout => ({
             ...prevWorkout,
             type: '',
@@ -66,19 +67,24 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
     // Función del calendario
     const navigate = useNavigate()
     const todayDate = new Date()
+    const [dateParam, setDateParam] = useState(new Date())
 
     const handleDateClick = date => {
-        
-        console.log("Calendar ")
-        if (date.getTime() === todayDate.getTime()) {
-            navigate(`/workout`)
-        }
-        else {
-            const formattedDate = formatDate(date)
-            navigate(`/workout/${formattedDate}`)
-        }
+        console.log("ACTIVE2 "+JSON.stringify(activeStartDate))
+
+        const formattedDate = formatDate(date)
+
+        if(user?._id === userClient._id) 
+            if (date.getTime() === todayDate.getTime()) 
+                navigate(`/workout`)
+            else 
+                navigate(`/workout/${formattedDate}`)
+        else 
+            if (date.getTime() === todayDate.getTime()) 
+                navigate(`/usuarios/${userClient.username}/workout`)
+            else 
+                navigate(`/usuarios/${userClient.username}/workout/${formattedDate}`)
     }
-    const [dateParam, setDateParam] = useState(new Date())
 
     const handleViewChange = event => {
         const dateActive = new Date(activeStartDate)

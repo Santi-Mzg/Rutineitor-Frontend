@@ -1,18 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { getCalendarWorkouts } from '../lib/actions/workout.ts';
-import WorkoutPage from './WorkoutPage.tsx';
-import { WorkoutType } from '../lib/definitions.ts';
-import { useAuth } from '../context/AuthContext.jsx';
-import CalendarSection from './CalendarSection.tsx';
+import UserWorkoutPage from './UserWorkoutPage.tsx';
+import { UserType, WorkoutType } from '../lib/definitions.ts';
+import UserCalendarSection from './UserCalendarSection.tsx';
 import { useParams } from 'react-router-dom';
 import { formatDate } from '../lib/utils.ts';
 import Toolbar from '../components/Toolbar.tsx';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fetchUser } from '../lib/actions/user.ts';
 
-export default function MainPage() {
-    const { user } = useAuth() 
-    const { date } = useParams() // Obtiene la fecha pasada en la URL de la página
+export default function UserMainPage() {
+    
+    const { username, date } = useParams() // Obtiene el username y la fecha pasada en la URL de la página
+    const [userClient, setUserClient] = useState<UserType>({
+        _id: '',
+        username: '',
+        email: '',
+        age: '',
+        weight: '',
+        height: '',
+        goal: '',
+        genre: '',
+        isTrainer: false,
+    });
+
+    useEffect(() => {
+        const getUser = async (username: string) => {
+            try {
+                const data = await fetchUser(username);
+                setUserClient(data); // Asigna los datos de los entrenamientos
+
+            } catch (error) {
+                console.error('Error fetching workouts:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        if(username)
+            getUser(username); 
+        
+    }, [username]);
+
+
     const todayDate = new Date() // Obtiene la fecha de hoy
     const firstDayOfMonth = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1); // Primer día del mes actual
     const actualDate = date ?? formatDate(todayDate) // Si date es undefined se iguala a todayDate
@@ -27,6 +57,7 @@ export default function MainPage() {
         comments: '',
         modificable: true,
     })
+
     useEffect(() => {
         const fetchWorkouts = async (date: string, user_id: string) => {
             try {
@@ -38,13 +69,15 @@ export default function MainPage() {
                 setLoading(false);
             }
         };
-        fetchWorkouts(activeStartDate, user?._id || '');
-        
-    }, [activeStartDate]);
+        fetchWorkouts(activeStartDate, userClient._id);
+        console.log("ACTIVE "+JSON.stringify(activeStartDate))
+        console.log("id "+JSON.stringify(userClient._id))
+
+    }, [activeStartDate, userClient]);
 
     // Actualiza el entrenamiento según la fecha actual
     useEffect(() => {
-        // const localWorkout = localStorage.getItem(actualDate + user?.username || '');
+        // const localWorkout = localStorage.getItem(actualDate + userClient?.username || '');
         let foundWorkout
         //  = localWorkout ? JSON.parse(localWorkout) : null;
         const actualDateDATE = new Date(actualDate)
@@ -65,7 +98,6 @@ export default function MainPage() {
             comments: foundWorkout?.comments || '',
             modificable: foundWorkout ? false : true,
         });
-        console.log("wod "+JSON.stringify(workout))
 
     }, [actualDate, workoutList]);
 
@@ -113,8 +145,8 @@ export default function MainPage() {
                 </div>
                 ||
                 <div className='w-full'>
-                    <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
-                    <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
+                    <UserWorkoutPage userClient={userClient} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
+                    <UserCalendarSection userClient={userClient} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
                 </div>
                 }
             </div>

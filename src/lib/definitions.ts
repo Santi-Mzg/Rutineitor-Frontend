@@ -1,10 +1,13 @@
 export type UserType = {
+    _id: string;
     username: string;
     email: string;
     age: string;
     weight: string;
     height: string;
     goal: string;
+    genre: string;
+    isTrainer: boolean;
 }
 
 export type ExerciseType = {

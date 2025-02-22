@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { WorkoutType } from '../lib/definitions.ts';
 import Toolbar from '../components/Toolbar.tsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
-import { fetchWorkoutsByExercise } from '../lib/actions.ts';
+import { fetchWorkoutsByExercise } from '../lib/actions/workout.ts';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { exercises } from '../lib/exercises.json';

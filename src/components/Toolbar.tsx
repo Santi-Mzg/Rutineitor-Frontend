@@ -57,6 +57,14 @@ function Toolbar() {
               >
                 Rutinas por Ejercicio
               </Link>
+              {user?.isTrainer && (
+                <Link
+                  to="/usuarios"
+                  className="text-white hover:text-gray-100 transition-colors"
+                >
+                  Usuarios
+                </Link>
+              )}
             </>
           )}
         </div>
@@ -109,6 +117,14 @@ function Toolbar() {
                   >
                     Rutinas por Ejercicio
                   </Link>
+                  {user?.isTrainer && (
+                      <Link
+                        to="/usuarios"
+                        className="text-white hover:text-gray-100 transition-colors"
+                      >
+                        Usuarios
+                      </Link>
+                  )}
                   <form className="d-flex" onSubmit={onSubmit}>
                     <Button className="btn btn-secondary my-0 my-sm-0 py-1 border-transparent text-gray-600" type="submit">
                         <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '30px' }} />

@@ -1,9 +1,9 @@
-import { deleteWorkoutRequest, createOrUpdateWorkoutRequest, getCalendarWorkoutsRequest, fetchWorkoutsByTypeRequest, fetchWorkoutsByExerciseRequest} from "../api/workout"
-import { WorkoutType } from "./definitions";
+import { deleteWorkoutRequest, createOrUpdateWorkoutRequest, getCalendarWorkoutsRequest, fetchWorkoutsByTypeRequest, fetchWorkoutsByExerciseRequest} from "../../api/workout"
+import { WorkoutType } from "../definitions";
 
-export const getCalendarWorkouts = async (date: string) => {
+export const getCalendarWorkouts = async (date: string, id:string) => {
     try {
-        const res = await getCalendarWorkoutsRequest(date)
+        const res = await getCalendarWorkoutsRequest(date, id)
         
         return Array.isArray(res.data) ? res.data : [];
         
@@ -11,12 +11,14 @@ export const getCalendarWorkouts = async (date: string) => {
         console.log(error)
         return []
     }
+
 }
 
-export const createOrUpdateWorkout = async (workout: WorkoutType) => {
+export const createOrUpdateWorkout = async (workout: WorkoutType, id:string) => {
     try {
+        console.log("TO SAVE "+id+" "+JSON.stringify(workout))            
 
-        const res = await createOrUpdateWorkoutRequest(workout)
+        const res = await createOrUpdateWorkoutRequest(workout, id)
         console.log("SAVED "+JSON.stringify(res.data))            
         
         return res.data
@@ -26,9 +28,9 @@ export const createOrUpdateWorkout = async (workout: WorkoutType) => {
     }
 }
 
-export const deleteWorkout = async (date: string) => {
+export const deleteWorkout = async (date: string, id:string) => {
     try {
-        await deleteWorkoutRequest(date)
+        await deleteWorkoutRequest(date, id)
 
     } catch (error) {
         console.log(error)

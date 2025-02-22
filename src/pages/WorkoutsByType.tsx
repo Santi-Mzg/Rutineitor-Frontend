@@ -3,7 +3,7 @@ import { WorkoutType } from '../lib/definitions.ts';
 import { arrayTypes } from '../lib/utils.js';
 import Toolbar from '../components/Toolbar.tsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
-import { fetchWorkoutsByType } from '../lib/actions.ts';
+import { fetchWorkoutsByType } from '../lib/actions/workout.ts';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { Card, CardContent } from '../components/ui/card.tsx';

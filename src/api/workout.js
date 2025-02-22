@@ -1,14 +1,13 @@
 import axios from './axios'
 
-export const getWorkoutRequest = (date) => axios.get(`/workout/${date}`)
+export const getWorkoutRequest = (date, id) => axios.get(`/workout/${id}/${date}`)
 
-export const getCalendarWorkoutsRequest = (date) => axios.get(`/workout-calendar-list/${date}`)
+export const getCalendarWorkoutsRequest = (date, id) => axios.get(`/workout-calendar-list/${id}/${date}`)
 
-export const createOrUpdateWorkoutRequest = (workout) => axios.post(`/workout`, workout)
+export const createOrUpdateWorkoutRequest = (workout, id) => axios.post(`/workout/${id}`, workout)
 
-export const deleteWorkoutRequest = (date) => axios.delete(`/workout/${date}`)
+export const deleteWorkoutRequest = (date, id) => axios.delete(`/workout/${id}/${date}`)
 
 export const fetchWorkoutsByTypeRequest = (type) => axios.get(`/workout-type-list/${type}`)
 
 export const fetchWorkoutsByExerciseRequest = (exercise) => axios.get(`/workout-exercise-list/${exercise}`)
-

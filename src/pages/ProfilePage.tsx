@@ -5,7 +5,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { PersonalInfo } from "./personal-info"
 import { ExerciseRecords } from "./exercise-records"
 import { Milestones } from "./milestones"
-import { useAuth } from "../context/AuthContext"
 
 export default function ProfilePage() {
 

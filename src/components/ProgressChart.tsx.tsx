@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, TimeScale } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import { fetchWorkoutsByExercise } from '../lib/actions';
+import { fetchWorkoutsByExercise } from '../lib/actions/workout';
 import { _arrayUnique } from 'chart.js/helpers';
 
 // Registrar componentes de Chart.js
