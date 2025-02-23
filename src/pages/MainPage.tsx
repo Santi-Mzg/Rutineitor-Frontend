@@ -16,7 +16,7 @@ export default function MainPage() {
     const todayDate = new Date() // Obtiene la fecha de hoy
     const firstDayOfMonth = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1); // Primer día del mes actual
     const actualDate = date ?? formatDate(todayDate) // Si date es undefined se iguala a todayDate
-    
+
     const [loading, setLoading] = useState(true);
     const [activeStartDate, setActiveStartDate] = useState<string>(formatDate(firstDayOfMonth));
     const [workoutList, setWorkoutList] = useState<WorkoutType[]>([]);

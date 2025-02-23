@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useNavigate } from 'react-router-dom';
@@ -10,8 +10,37 @@ import { formatDate } from '../lib/utils.ts';
 
 export default function CalendarSection({ user, workout, setWorkout, workoutList, setWorkoutList, expandedCalendarPanel, setExpandedCalendarPanel, activeStartDate, setActiveStartDate}) {
 
+
+    const navigate = useNavigate()
+    const todayDate = new Date()
+    const [dateParam, setDateParam] = useState(new Date())
+
+
     
-    // Código de la seccion del calendario
+    useEffect(() => {
+        if (dateParam < new Date(activeStartDate)) {
+            setActiveStartDate(formatDate(dateParam));
+        }
+    }, [dateParam]);
+
+
+
+    const handleDateClick = date => {
+        
+        console.log("Calendar ")
+        if (date.getTime() === todayDate.getTime()) {
+            navigate(`/workout`)
+        }
+        else {
+            const formattedDate = formatDate(date)
+            navigate(`/workout/${formattedDate}`)
+        }
+    }
+
+    const handleViewChange = event => {
+        setDateParam(event.activeStartDate)
+    }
+    
     const toggleCalendarPanel = () => {
         setExpandedCalendarPanel((prevState => !prevState));
     };
@@ -61,31 +90,6 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
             const updatedWorkoutList = [...prevWorkoutList].filter(wod => wod.date !== workout.date);
             return updatedWorkoutList;
         });
-    }
-
-    // Función del calendario
-    const navigate = useNavigate()
-    const todayDate = new Date()
-
-    const handleDateClick = date => {
-        
-        console.log("Calendar ")
-        if (date.getTime() === todayDate.getTime()) {
-            navigate(`/workout`)
-        }
-        else {
-            const formattedDate = formatDate(date)
-            navigate(`/workout/${formattedDate}`)
-        }
-    }
-    const [dateParam, setDateParam] = useState(new Date())
-
-    const handleViewChange = event => {
-        const dateActive = new Date(activeStartDate)
-        setDateParam(new Date(event.activeStartDate))
-
-        if(dateParam < dateActive)
-            setActiveStartDate(formatDate(event.activeStartDate))
     }
 
     const tileClassName = ({ date, view }) => {
