@@ -49,12 +49,12 @@ export default function RegisterPage() {
                         placeholder='Contraseña' />
                     {errors.password && <p className='text-red-500'>Ingrese una contraseña</p>}
 
-                    <button type='submit'>
+                    <button className='bg-sky-500' type='submit'>
                         Crear cuenta
                     </button>
                 </form>
 
-                <p className='flex gap-x-2 justify-center'>
+                <p className='flex gap-x-2 justify-center text-white'>
                     ¿Ya tienes una cuenta?
                     <Link to="/login" className='text-sky-500'>Inicia sesión</Link>
                 </p>

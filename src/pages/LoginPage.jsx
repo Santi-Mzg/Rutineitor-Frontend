@@ -40,12 +40,12 @@ export default function LoginPage() {
                         placeholder='Contraseña' />
                     {errors.password && <p className='text-red-500'>Ingrese una contraseña</p>}
 
-                    <button type='submit'>
+                    <button className='bg-sky-500' type='submit'>
                         Ingresar
                     </button>
                 </form>
 
-                <p className='flex gap-x-2 justify-center'>
+                <p className='flex gap-x-2 justify-center text-white'>
                     ¿No tienes una cuenta? <Link to="/register" className='text-sky-500'>Registrate</Link>
                 </p>
             </div>

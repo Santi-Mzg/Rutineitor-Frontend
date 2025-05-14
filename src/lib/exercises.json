@@ -11,6 +11,16 @@
       "weighted": true
     },
     {
+      "label": "Arco",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Arco Dinámico",
+      "isometric": false,
+      "weighted": false
+    },
+    {
       "label": "Autralianas",
       "isometric": false,
       "weighted": true
@@ -84,6 +94,11 @@
       "label": "Biceps Anillas",
       "isometric": false,
       "weighted": false
+    },
+    {
+      "label": "Buenos Días",
+      "isometric": false,
+      "weighted": true
     },
     {
       "label": "Camilla",
@@ -201,6 +216,11 @@
       "weighted": true
     },
     {
+      "label": "Elevación de Cadera Anillas",
+      "isometric": false,
+      "weighted": false
+    },
+    {
       "label": "Elevación de Cadera Pausada",
       "isometric": false,
       "weighted": true
@@ -252,6 +272,11 @@
     },
     {
       "label": "Flexiones Arquero",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Flexiones de Tríceps",
       "isometric": false,
       "weighted": false
     },
@@ -351,6 +376,11 @@
       "weighted": false
     },
     {
+      "label": "Frog Stand",
+      "isometric": true,
+      "weighted": false
+    },
+    {
       "label": "Front Lever",
       "isometric": true,
       "weighted": false
@@ -391,14 +421,24 @@
       "weighted": true
     },
     {
+      "label": "Headstand",
+      "isometric": true,
+      "weighted": false
+    },
+    {
       "label": "Hefesto Biceps",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Hollow Body Position",
+      "label": "Hollow Body",
       "isometric": true,
       "weighted": true
+    },
+    {
+      "label": "Hollow Invertido",
+      "isometric": true,
+      "weighted": false
     },
     {
       "label": "Horsestand",
@@ -471,6 +511,11 @@
       "weighted": true
     },
     {
+      "label": "Pinza",
+      "isometric": true,
+      "weighted": true
+    },
+    {
       "label": "Pistols",
       "isometric": false,
       "weighted": true
@@ -496,12 +541,17 @@
       "weighted": false
     },
     {
+      "label": "Plancha Lateral Estrella",
+      "isometric": true,
+      "weighted": false
+    },
+    {
       "label": "Plancha Superman",
       "isometric": true,
       "weighted": false
     },
     {
-      "label": "Planche Lean",
+      "label": "Planche Baja Lean",
       "isometric": true,
       "weighted": false
     },
@@ -571,7 +621,7 @@
       "weighted": false
     },
     {
-      "label": "Retracciones escapulares",
+      "label": "Retracciones Escapulares",
       "isometric": false,
       "weighted": false
     },
@@ -593,6 +643,11 @@
     {
       "label": "Rueda Abdominal Parado",
       "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Saltar Soga",
+      "isometric": true,
       "weighted": false
     },
     {
@@ -636,6 +691,16 @@
       "weighted": true
     },
     {
+      "label": "Sentadillas Isométricas",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Sentadillas Laterales",
+      "isometric": false,
+      "weighted": true
+    },
+    {
       "label": "Sentadillas Pausadas",
       "isometric": false,
       "weighted": true
@@ -659,6 +724,11 @@
       "label": "Skin the Cat",
       "isometric": false,
       "weighted": false
+    },
+    {
+      "label": "Subida al Cajón",
+      "isometric": false,
+      "weighted": true
     },
     {
       "label": "Toes to Bar",
@@ -744,6 +814,11 @@
       "label": "Vuelo Lateral Banda",
       "isometric": false,
       "weighted": false
+    },
+    {
+      "label": "Wallball",
+      "isometric": false,
+      "weighted": true
     }
   ]
 }
