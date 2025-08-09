@@ -9,7 +9,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet"
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../context/AuthContext'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
@@ -46,20 +45,20 @@ function Toolbar() {
                 Mi Perfil
               </Link>
               <Link
-                to="/tipo"
+                to="/workouts-by-type"
                 className="text-white hover:text-gray-300 transition-colors"
               >
                 Rutinas por Tipo
               </Link>
               <Link
-                to="/ejercicio"
+                to="/workouts-by-exercise"
                 className="text-white hover:text-gray-100 transition-colors"
               >
                 Rutinas por Ejercicio
               </Link>
               {user?.isTrainer && (
                 <Link
-                  to="/usuarios"
+                  to="/users"
                   className="text-white hover:text-gray-100 transition-colors"
                 >
                   Usuarios
@@ -119,7 +118,7 @@ function Toolbar() {
                   </Link>
                   {user?.isTrainer && (
                       <Link
-                        to="/usuarios"
+                        to="/users"
                         className="text-white hover:text-gray-100 transition-colors"
                       >
                         Usuarios

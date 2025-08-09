@@ -12,14 +12,17 @@ import { Card, CardContent } from '../components/ui/card.tsx';
 
 export default function WorkoutsByExercise() {    
     const { user } = useAuth()
+
     const [selectedExercise, setSelectedExercise] = useState<string>(() => {
         const localValue = user ? localStorage.getItem(user.username+'selectedExercise') : null
         return localValue ? JSON.parse(localValue) : ''
     });
+
     const [workoutList, setWorkoutList] = useState<WorkoutType[]>(() => {
         const localValue = user ? localStorage.getItem(user.username+'workoutList') : null;
         return localValue ? JSON.parse(localValue) : []
     });
+
     const selectExercise = (option) => {
         setSelectedExercise(option.label);
     }
@@ -44,9 +47,9 @@ export default function WorkoutsByExercise() {
     }
 
     useEffect(() => {
-        const fetchWorkoutsByexercise = async (date: string) => {
+        const fetchWorkoutsByexercise = async (exercise: string) => {
             try {
-                const data = await fetchWorkoutsByExercise(date);
+                const data = await fetchWorkoutsByExercise(exercise);
                 setWorkoutList(data);
 
             } catch (error) {
@@ -64,13 +67,15 @@ export default function WorkoutsByExercise() {
         }
     }, [workoutList]);
 
+    console.log('selectedExercise: ', selectedExercise);
+    console.log('workoutList: ', workoutList);
+
     return (
         <div className='w-screen'>
             <Toolbar />
             <div className='parent-section py-4 flex-col flex justify-center items-center'>
                 <div className='header'>
-                    {selectedExercise!=='' && <DropDownWithSearch onChange={selectExercise} options={exercises} text="Elegir Ejercicio..." />}
-                    <h2 className='py-2' style={{ color: '#f3969a', fontWeight: 'bold', textAlign: 'center' }}>{selectedExercise}</h2>
+                    <DropDownWithSearch onChange={selectExercise} options={exercises} text={selectedExercise} />
                 </div>
                 {workoutList.length === 0 && <h2 className='text-black py-2'>Sin registros</h2> 
                 ||
