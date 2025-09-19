@@ -6,9 +6,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faSave, faEdit, faCopy, faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { createOrUpdateWorkout, deleteWorkout } from '../lib/actions/workout.ts';
 import { formatDate } from '../lib/utils.ts';
+import { WorkoutType, UserType } from '../lib/definitions.ts';
 
+interface CalendarSectionProps {
+    user: UserType;
+    workout: WorkoutType;
+    setWorkout: React.Dispatch<React.SetStateAction<WorkoutType>>;
+    workoutList: WorkoutType[];
+    setWorkoutList: React.Dispatch<React.SetStateAction<WorkoutType[]>>;
+    expandedCalendarPanel: boolean;
+    setExpandedCalendarPanel: React.Dispatch<React.SetStateAction<boolean>>;
+    activeStartDate: string;
+    setActiveStartDate: React.Dispatch<React.SetStateAction<string>>;
+}
 
-export default function CalendarSection({ user, workout, setWorkout, workoutList, setWorkoutList, expandedCalendarPanel, setExpandedCalendarPanel, activeStartDate, setActiveStartDate}) {
+export default function CalendarSection({
+    user,
+    workout,
+    setWorkout,
+    workoutList,
+    setWorkoutList,
+    expandedCalendarPanel,
+    setExpandedCalendarPanel,
+    activeStartDate,
+    setActiveStartDate
+}: CalendarSectionProps) {
 
 
     const navigate = useNavigate()
@@ -25,8 +47,8 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
 
 
 
-    const handleDateClick = date => {
-        
+    const handleDateClick = (date: Date) => {
+
         console.log("Calendar ")
         if (date.getTime() === todayDate.getTime()) {
             navigate(`/workout`)
@@ -37,8 +59,10 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
         }
     }
 
-    const handleViewChange = event => {
-        setDateParam(event.activeStartDate)
+    const handleViewChange = ({ activeStartDate }: { activeStartDate: Date | null }) => {
+        if (activeStartDate) {
+            setDateParam(activeStartDate);
+        }
     }
     
     const toggleCalendarPanel = () => {
@@ -92,7 +116,7 @@ export default function CalendarSection({ user, workout, setWorkout, workoutList
         });
     }
 
-    const tileClassName = ({ date, view }) => {
+    const tileClassName = ({ date, view }: { date: Date; view: string }) => {
 
         // Check if the tile represents the current date
         const formattedDate = formatDate(date)

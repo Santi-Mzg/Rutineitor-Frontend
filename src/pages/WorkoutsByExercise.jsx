@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { WorkoutType } from '../lib/definitions.ts';
+import { useEffect, useState } from 'react';
 import Toolbar from '../components/Toolbar.tsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
 import { fetchWorkoutsByExercise } from '../lib/actions/workout.ts';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../context/AuthContext.tsx';
 import { exercises } from '../lib/exercises.json';
-import ProgressChart from '../components/ProgressChart.tsx.tsx';
+import ProgressChart from '../components/ProgressChart.tsx';
 import { Card, CardContent } from '../components/ui/card.tsx';
 
 
@@ -18,7 +17,7 @@ export default function WorkoutsByExercise() {
         return localValue ? JSON.parse(localValue) : ''
     });
 
-    const [workoutList, setWorkoutList] = useState<WorkoutType[]>(() => {
+    const [workoutList, setWorkoutList] = useState(() => {
         const localValue = user ? localStorage.getItem(user.username+'workoutList') : null;
         return localValue ? JSON.parse(localValue) : []
     });
@@ -47,7 +46,7 @@ export default function WorkoutsByExercise() {
     }
 
     useEffect(() => {
-        const fetchWorkoutsByexercise = async (exercise: string) => {
+        const fetchWorkoutsByexercise = async (exercise) => {
             try {
                 const data = await fetchWorkoutsByExercise(exercise);
                 setWorkoutList(data);
@@ -90,7 +89,7 @@ export default function WorkoutsByExercise() {
                                         </div>
                                         {Object.entries(getMaxWeightByVolume(workout, selectedExercise)).map(([volume, weight]) => (
                                             <div className="text-left sm:text-right flex items-center space-x-2" key={volume}>
-                                                <p className="font-semibold">{weight as string} kg</p>
+                                                <p className="font-semibold">{weight} kg</p>
                                                 <p className="text-sm text-gray-500">x {volume} rep{volume === '1' || 's'}</p>
                                             </div>
                                         ))}

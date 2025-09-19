@@ -71,7 +71,7 @@ export default function MainPage() {
 
 
     // Código de la seccion de comentarios
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         setWorkout(prevWorkout => ({
             ...prevWorkout,
             comments: event.target.value
@@ -113,8 +113,12 @@ export default function MainPage() {
                 </div>
                 ||
                 <div className='w-full'>
-                    <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
-                    <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
+                    {user && (
+                        <>
+                            <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
+                            <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>    
+                        </>
+                    )}
                 </div>
                 }
             </div>

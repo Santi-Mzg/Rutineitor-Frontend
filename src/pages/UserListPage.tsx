@@ -193,7 +193,7 @@ useEffect(() => {
                   </TableCell>
                   <TableCell className="text-center">
                     <Link to={{
-                      pathname: `/usuarios/${usuario.username}/workout`,
+                      pathname: `/users/${usuario.username}/workout`,
                     }}>
                       <Button size="sm" variant="default">
                         <Pencil className="h-4 w-4 mr-2" />

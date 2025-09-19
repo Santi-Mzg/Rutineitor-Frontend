@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             const res = await registerRequest(user)
             setUser(res.data)
             setIsAuthenticated(true)
-        } catch (error) {
+        } catch (error: any) {
             if (Array.isArray(error.response.data))
                 setErrors(error.response.data)
             else
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             console.log("res.data "+JSON.stringify(res.data))
             setUser(res.data)
             setIsAuthenticated(true)
-        } catch (error) {
+        } catch (error: any) {
             if (Array.isArray(error.response.data)){
                 setErrors(error.response.data)
             }
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             Cookies.remove("token")
             setUser(null)
             setIsAuthenticated(false)
-        } catch (error) {
+        } catch (error: any) {
             if (Array.isArray(error.response.data)){
                 setErrors(error.response.data)
             }
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             console.log(JSON.stringify(user))
             const res = await modifyRequest(user)
             setUser(res.data)
-        } catch (error) {
+        } catch (error: any) {
             if (Array.isArray(error.response.data)){
                 setErrors(error.response.data)
             }

@@ -1,23 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-export default function TextArea({ style, value, onChange, placeholder, modificable, blockIndex, exerciseIndex, options}) {
+export default function TextArea({ style, value, onChange, placeholder, modificable, blockIndex, exerciseIndex, options, regex}) {
 
     const [expanded, setExpanded] = useState(false);
     const containerRef = useRef(null);
 
     const toggleExpanded = () => {
+        if (options.length === 0) return;
         setExpanded(!expanded);
     };
 
     const handleChange = (event) => {
         const inputValue = event.target.value;
-        const filteredValue = inputValue.replace(/[^0-9.]|(?<!\d)\.|(?<=\..*)\.|(?<=\.[0-9]*)[0-9]{3,}/g, ''); // Filtra solo números
-        onChangeLocal(blockIndex, exerciseIndex, filteredValue);   
-    }
-    
+        
+        // Limpia caracteres que no sean dígitos, punto o dos puntos
+        const cleanedValue = inputValue.replace(regex, '');
+
+        // Solo actualiza si matchea con decimal o MM:SS, o si está vacío (para poder borrar)
+        onChangeLocal(blockIndex, exerciseIndex, cleanedValue);
+    };
+
     const onChangeLocal = (blockIndex, exerciseIndex, option) => {
-        onChange(blockIndex, exerciseIndex, option)
-        setExpanded(false)
+        onChange(blockIndex, exerciseIndex, option);
+        setExpanded(false);
     }
 
     useEffect(() => {

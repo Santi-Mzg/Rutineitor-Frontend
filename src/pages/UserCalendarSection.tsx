@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,17 @@ import { createOrUpdateWorkout, deleteWorkout } from '../lib/actions/workout.ts'
 import { formatDate } from '../lib/utils.ts';
 import { useAuth } from '../context/AuthContext.tsx';
 
+interface CalendarSectionProps {
+    userClient: UserType;
+    workout: WorkoutType;
+    setWorkout: React.Dispatch<React.SetStateAction<WorkoutType>>;
+    workoutList: WorkoutType[];
+    setWorkoutList: React.Dispatch<React.SetStateAction<WorkoutType[]>>;
+    expandedCalendarPanel: boolean;
+    setExpandedCalendarPanel: React.Dispatch<React.SetStateAction<boolean>>;
+    activeStartDate: string;
+    setActiveStartDate: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export default function UserCalendarSection({ userClient, workout, setWorkout, workoutList, setWorkoutList, expandedCalendarPanel, setExpandedCalendarPanel, activeStartDate, setActiveStartDate}) {
 

@@ -5,9 +5,16 @@ import 'react-calendar/dist/Calendar.css';
 import { arrayTypes } from '../lib/utils.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { ExerciseType, BlockType } from '../lib/definitions.ts';
+import { WorkoutType, UserType, ExerciseType, BlockType } from '../lib/definitions.ts';
 
-export default function UserWorkoutPage( {userClient, workout, setWorkout, expandedCalendarPanel} ) {
+interface UserWorkoutPageProps {
+    userClient: UserType;
+    workout: WorkoutType;
+    setWorkout: React.Dispatch<React.SetStateAction<WorkoutType>>;
+    expandedCalendarPanel: boolean;
+}
+
+export default function UserWorkoutPage({ userClient, workout, setWorkout, expandedCalendarPanel }: UserWorkoutPageProps) {
 
     useEffect(() => { // Guarda la rutina cuando se modifica
         localStorage.setItem(workout.date + userClient.username, JSON.stringify(workout))
@@ -22,7 +29,7 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
 
     // Funciones de la rutina
     // Funciones para manejo de bloques
-    const createWorkout = (option) => {
+    const createWorkout = (option: any) => {
         setWorkout(prevWorkout => ({
             ...prevWorkout,
             type: option.value
@@ -30,7 +37,7 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
         addBlock(0)
     }
 
-    const addBlock = (blockIndex) => {
+    const addBlock = (blockIndex: number) => {
         const newBlock: BlockType = {
             series: 3,
             exerciseList: [],
@@ -43,16 +50,7 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
         }));
     }
 
-    const updateSeries = (blockIndex, exerciseIndex, option) => {
-        const updatedBlocks = [...workout.blockList]
-        updatedBlocks[blockIndex].series = option
-        setWorkout(prevWorkout => ({
-            ...prevWorkout,
-            blockList: updatedBlocks
-        }))
-    }
-
-    const deleteBlock = (blockIndex) => {
+    const deleteBlock = (blockIndex: number) => {
         const updatedBlocks = [...workout.blockList]
         updatedBlocks.splice(blockIndex, 1)
         setWorkout(prevWorkout => ({
@@ -61,6 +59,14 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
         }));
     }
 
+    const updateSeries = (blockIndex: number, exerciseIndex: number, option: any) => {
+        const updatedBlocks = [...workout.blockList]
+        updatedBlocks[blockIndex].series = option
+        setWorkout(prevWorkout => ({
+            ...prevWorkout,
+            blockList: updatedBlocks
+        }))
+    }
 
     // Funciones para manejo de ejercicios
     const addExerciseToBlock = (blockIndex: number, exercise: ExerciseType) => {
@@ -78,6 +84,14 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
             blockList: updatedBlocks
         }))
     }
+
+    const blockActions = {
+        updateSeries,
+        addExercise: addExerciseToBlock,
+    }  
+
+
+
 
     const addVolume = (blockIndex: number, exerciseIndex: number, volume: string) => {
         const updatedBlocks = [...workout.blockList]
@@ -114,7 +128,7 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
         
     }
 
-    const moveExerciseUp = (blockIndex, exerciseIndex) => {
+    const moveExerciseUp = (blockIndex: number, exerciseIndex: number) => {
         if(exerciseIndex > 0) {
             const updatedBlocks = [...workout.blockList]
             const updatedExercises = [...workout.blockList[blockIndex].exerciseList]
@@ -129,7 +143,7 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
         }   
     }
 
-    const deleteExerciseFromBlock = (blockIndex, exerciseIndex) => {
+    const deleteExerciseFromBlock = (blockIndex: number, exerciseIndex: number) => {
         const updatedBlocks = [...workout.blockList]
         updatedBlocks[blockIndex].exerciseList.splice(exerciseIndex, 1)
         setWorkout(prevWorkout => ({
@@ -137,6 +151,16 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
             blockList: updatedBlocks
         }))
     }
+
+        const exerciseActions = {
+        addVolume,
+        addWeight,
+        // addDistance,
+        // addTime,
+        moveExerciseDown,
+        moveExerciseUp,
+        deleteExercise: deleteExerciseFromBlock,
+    }  
 
 
     return (
@@ -152,13 +176,9 @@ export default function UserWorkoutPage( {userClient, workout, setWorkout, expan
                                     series={block.series}
                                     exerciseList={block.exerciseList}
                                     modificable={workout.modificable}
-                                    updateSeries={updateSeries}
-                                    addVolume={addVolume}
-                                    addExercise={(exercise) => addExerciseToBlock(blockIndex, exercise)}
-                                    addWeight={addWeight}
-                                    moveExerciseDown={moveExerciseDown}
-                                    moveExerciseUp={moveExerciseUp}
-                                    deleteExercise={deleteExerciseFromBlock} />
+                                    blockActions={blockActions}
+                                    exerciseActions={exerciseActions}
+                                 />
                             </div>
                             {workout.modificable && 
                                 <div>

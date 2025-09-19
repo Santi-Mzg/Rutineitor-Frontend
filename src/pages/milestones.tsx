@@ -14,7 +14,6 @@ import {
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
 import { Progress } from "../components/ui/progress"
-import React from 'react'
 import { useAuth } from '../context/AuthContext'
 
 export function Milestones() {

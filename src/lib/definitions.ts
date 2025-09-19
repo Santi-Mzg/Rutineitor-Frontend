@@ -12,10 +12,12 @@ export type UserType = {
 
 export type ExerciseType = {
     label: string;
-    isometric: boolean;
-    weighted: boolean;
-    volume: string;
-    weight: string;
+    isometric?: boolean;
+    weighted?: boolean;
+    volume?: string;
+    weight?: string;
+    // time?: string;
+    // distance?: string;
 }
 
 export type BlockType = {

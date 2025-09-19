@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getCalendarWorkouts } from '../lib/actions/workout.ts';
-import UserWorkoutPage from './UserWorkoutPage.tsx';
+import WorkoutPage from './WorkoutPage.tsx';
 import { UserType, WorkoutType } from '../lib/definitions.ts';
-import UserCalendarSection from './UserCalendarSection.tsx';
+import CalendarSection from './CalendarSection.tsx';
 import { useParams } from 'react-router-dom';
 import { formatDate } from '../lib/utils.ts';
 import Toolbar from '../components/Toolbar.tsx';
@@ -103,7 +103,7 @@ export default function UserMainPage() {
 
 
     // Código de la seccion de comentarios
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setWorkout(prevWorkout => ({
             ...prevWorkout,
             comments: event.target.value
@@ -145,8 +145,8 @@ export default function UserMainPage() {
                 </div>
                 ||
                 <div className='w-full'>
-                    <UserWorkoutPage userClient={userClient} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
-                    <UserCalendarSection userClient={userClient} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
+                    <WorkoutPage user={userClient} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
+                    <CalendarSection user={userClient} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
                 </div>
                 }
             </div>

@@ -4,15 +4,10 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import 'chartjs-adapter-date-fns';
 import { fetchWorkoutsByExercise } from '../lib/actions/workout';
 import { _arrayUnique } from 'chart.js/helpers';
+import { BlockType, ExerciseType } from '../lib/definitions';
 
 // Registrar componentes de Chart.js
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, TimeScale);
-
-interface ProgressData {
-  date: string;
-  weight: number;
-  reps: number;
-}
 
 const ProgressChart: React.FC<{ exercise: string }> = ({ exercise }) => {
   const [chartData, setChartData] = useState<Record<string, Record<number, number>>>({});
@@ -25,13 +20,13 @@ const ProgressChart: React.FC<{ exercise: string }> = ({ exercise }) => {
         const workoutList = await fetchWorkoutsByExercise(exercise);
 
         const data = workoutList.flatMap(workout =>
-            workout.blockList.flatMap(block =>
+            workout.blockList.flatMap((block: BlockType) =>
               block.exerciseList
                 .filter(ex => ex.label === exercise)
-                .map(ex => ({
+                .map((ex: ExerciseType) => ({
                   date: workout.date,
-                  weight: parseFloat(ex.weight),
-                  reps: parseInt(ex.volume, 10),
+                  weight: parseFloat(ex.weight || '0'),
+                  reps: parseInt(ex.volume || '0', 10),
                 }))
             )
           );

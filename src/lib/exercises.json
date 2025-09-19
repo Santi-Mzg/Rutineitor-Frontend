@@ -106,7 +106,12 @@
       "weighted": true
     },
     {
-      "label": "Caminata en Vertical",
+      "label": "Caminata en Handstand",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Correr",
       "isometric": false,
       "weighted": false
     },
@@ -291,6 +296,21 @@
       "weighted": false
     },
     {
+      "label": "Flexiones Handstand BTW",
+      "isometric": false,
+      "weighted": true
+    },
+    {
+      "label": "Flexiones Handstand CTW",
+      "isometric": false,
+      "weighted": true
+    },
+    {
+      "label": "Flexiones Handstand Libres",
+      "isometric": false,
+      "weighted": true
+    },
+    {
       "label": "Flexiones Inclinadas",
       "isometric": false,
       "weighted": false
@@ -306,7 +326,7 @@
       "weighted": false
     },
     {
-      "label": "Flexiones Pyke Avanzadas",
+      "label": "Flexiones Pyke con Suspensión",
       "isometric": false,
       "weighted": false
     },
@@ -314,21 +334,6 @@
       "label": "Flexiones TigerBend",
       "isometric": false,
       "weighted": false
-    },
-    {
-      "label": "Flexiones verticales BTW",
-      "isometric": false,
-      "weighted": true
-    },
-    {
-      "label": "Flexiones verticales CTW",
-      "isometric": false,
-      "weighted": true
-    },
-    {
-      "label": "Flexiones verticales Libres",
-      "isometric": false,
-      "weighted": true
     },
     {
       "label": "Fondos",
@@ -341,7 +346,7 @@
       "weighted": true
     },
     {
-      "label": "Fondos Arquero",
+      "label": "Fondos Anillas Arquero",
       "isometric": false,
       "weighted": false
     },
@@ -356,28 +361,18 @@
       "weighted": true
     },
     {
-      "label": "Fondos Búlgaros",
-      "isometric": false,
-      "weighted": true
-    },
-    {
-      "label": "Fondos Explosivos",
-      "isometric": false,
-      "weighted": false
-    },
-    {
       "label": "Fondos Hefesto",
-      "isometric": false,
-      "weighted": false
-    },
-    {
-      "label": "Frog a Vertical",
       "isometric": false,
       "weighted": false
     },
     {
       "label": "Frog Stand",
       "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Frog to Handstand",
+      "isometric": false,
       "weighted": false
     },
     {
@@ -419,6 +414,91 @@
       "label": "Gemelos",
       "isometric": false,
       "weighted": true
+    },
+    {
+      "label": "Handstand",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Handstand 1 Brazo Finger Sup",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Handstand 1 Brazo Finger Sup Side to Side",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand 1 Brazo Finger Sup Splits",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand 7",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Full Flags",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Press",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Scorpion",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Shoulder Taps",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Splits",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Stalder Press",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Straddle Flags",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Straddle Press",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand to 7",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand to Scorpion",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand to Tuck",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Handstand Tuck Press",
+      "isometric": false,
+      "weighted": false
     },
     {
       "label": "Headstand",
@@ -466,7 +546,42 @@
       "weighted": false
     },
     {
-      "label": "Multipresa",
+      "label": "Multipresa 10mm",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Multipresa 15mm",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Multipresa 20mm",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Multipresa 25mm",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Multipresa 30mm",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Multipresa 5mm",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Multipresa Romo",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Multipresa Romo Avanzado",
       "isometric": true,
       "weighted": true
     },
@@ -581,11 +696,6 @@
       "weighted": true
     },
     {
-      "label": "Press a Vertical",
-      "isometric": false,
-      "weighted": false
-    },
-    {
       "label": "Press Militar",
       "isometric": false,
       "weighted": true
@@ -601,22 +711,32 @@
       "weighted": false
     },
     {
-      "label": "Remos a la Cadera",
+      "label": "Remo a la Cadera",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Remos Anillas",
+      "label": "Remo Anillas/TRX",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Remos Barra",
+      "label": "Remo Anillas/TRX 1 brazo",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Remos Invertido",
+      "label": "Remo Barra",
+      "isometric": false,
+      "weighted": true
+    },
+    {
+      "label": "Remo Caballo",
+      "isometric": false,
+      "weighted": true
+    },
+    {
+      "label": "Remo Invertido",
       "isometric": false,
       "weighted": false
     },
@@ -769,31 +889,6 @@
       "label": "V-sit ups",
       "isometric": false,
       "weighted": true
-    },
-    {
-      "label": "Vertical",
-      "isometric": true,
-      "weighted": false
-    },
-    {
-      "label": "Vertical 1 Brazo Finger Sup",
-      "isometric": true,
-      "weighted": false
-    },
-    {
-      "label": "Vertical 7",
-      "isometric": true,
-      "weighted": false
-    },
-    {
-      "label": "Vertical a 7",
-      "isometric": false,
-      "weighted": false
-    },
-    {
-      "label": "Vertical lado a lado",
-      "isometric": false,
-      "weighted": false
     },
     {
       "label": "Vuelo Frontal",

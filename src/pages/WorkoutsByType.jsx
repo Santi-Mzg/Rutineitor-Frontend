@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { WorkoutType } from '../lib/definitions.ts';
-import { arrayTypes } from '../lib/utils.js';
+import { arrayTypes } from '../lib/utils.ts';
 import Toolbar from '../components/Toolbar.tsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
 import { fetchWorkoutsByType } from '../lib/actions/workout.ts';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../context/AuthContext.tsx';
 import { Card, CardContent } from '../components/ui/card.tsx';
 
 export default function WorkoutsByType() {    
@@ -13,7 +12,7 @@ export default function WorkoutsByType() {
         const localValue = user ? localStorage.getItem(user.username+'selectedType') : null
         return localValue ? JSON.parse(localValue) : ''
     });
-    const [workoutList, setWorkoutList] = useState<WorkoutType[]>(() => {
+    const [workoutList, setWorkoutList] = useState(() => {
         const localValue = user ? localStorage.getItem(user.username+'workoutList') : null
         return localValue ? JSON.parse(localValue) : []
     });
@@ -22,7 +21,7 @@ export default function WorkoutsByType() {
     }
 
     useEffect(() => {
-        const fetchWorkoutsBytype = async (date: string) => {
+        const fetchWorkoutsBytype = async (date) => {
             try {
                 const data = await fetchWorkoutsByType(date);
                 console.log("WODS "+JSON.stringify(data))
