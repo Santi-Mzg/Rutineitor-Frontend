@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext.tsx';
 import { exercises } from '../lib/exercises.json';
 import ProgressChart from '../components/ProgressChart.tsx';
 import { Card, CardContent } from '../components/ui/card.tsx';
+import { BlockType, ExerciseType, WorkoutType } from '../lib/definitions.ts';
 
 
 export default function WorkoutsByExercise() {    
@@ -14,28 +15,25 @@ export default function WorkoutsByExercise() {
 
     const [selectedExercise, setSelectedExercise] = useState<string>(() => {
         const localValue = user ? localStorage.getItem(user.username+'selectedExercise') : null
-        return localValue ? JSON.parse(localValue) : ''
+        return localValue ? JSON.parse(localValue) : null
     });
 
-    const [workoutList, setWorkoutList] = useState(() => {
+    const [workoutList, setWorkoutList] = useState<WorkoutType[]>(() => {
         const localValue = user ? localStorage.getItem(user.username+'workoutList') : null;
         return localValue ? JSON.parse(localValue) : []
     });
 
-    const selectExercise = (option) => {
-        setSelectedExercise(option.label);
-    }
-
-    function getMaxWeightByVolume(workout, exerciseLabel) {
+    function getMaxWeightByVolume(workout: WorkoutType, exerciseLabel: string) {
         let exerciseData = workout.blockList
-          .flatMap(block => block.exerciseList)
-          .filter(exercise => exercise.label === exerciseLabel);
+          .flatMap((block: BlockType) => block.exerciseList)
+          .filter((exercise: ExerciseType) => exercise.label === exerciseLabel);
       
-        let volumeWeights = {};
+        let volumeWeights: Record<number, number> = {};
       
-        exerciseData.forEach(exercise => {
-          const volume = exercise.volume;
-          const weight = parseInt(exercise.weight, 10);
+        exerciseData.forEach((exercise: ExerciseType) => {
+          const volume = exercise.volume !== "Max" ? exercise.volume : Infinity;
+          const weight = exercise.weight !== "Libre" ? exercise.weight : 0;
+  
       
           if (!volumeWeights[volume] || volumeWeights[volume] < weight) {
             volumeWeights[volume] = weight;
@@ -46,9 +44,9 @@ export default function WorkoutsByExercise() {
     }
 
     useEffect(() => {
-        const fetchWorkoutsByexercise = async (exercise) => {
+        const fetchWorkoutsByexercise = async (exerciseLabel: string) => {
             try {
-                const data = await fetchWorkoutsByExercise(exercise);
+                const data = await fetchWorkoutsByExercise(exerciseLabel);
                 setWorkoutList(data);
 
             } catch (error) {
@@ -74,14 +72,14 @@ export default function WorkoutsByExercise() {
             <Toolbar />
             <div className='parent-section py-4 flex-col flex justify-center items-center'>
                 <div className='header'>
-                    <DropDownWithSearch onChange={selectExercise} options={exercises} text={selectedExercise} />
+                    <DropDownWithSearch onChange={(option: any) => setSelectedExercise(option.label)} options={exercises} text={"Elegir Ejercicio..."} />
                 </div>
                 {workoutList.length === 0 && <h2 className='text-black py-2'>Sin registros</h2> 
                 ||
                 <Card>
                     <CardContent>
                         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-2">
-                            {workoutList.map((workout, index) => (
+                            {workoutList.map((workout: WorkoutType, index: number) => (
                                 <Link to={`/workout/${(workout.date).slice(0, 10)}`} key={index}>
                                     <div className="rounded-lg border p-4 flex flex-col space-y-2 sm:space-y-0">
                                         <div>

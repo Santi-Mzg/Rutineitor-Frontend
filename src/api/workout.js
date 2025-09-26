@@ -11,3 +11,8 @@ export const deleteWorkoutRequest = (date, id) => axios.delete(`/workout/${id}/$
 export const fetchWorkoutsByTypeRequest = (type) => axios.get(`/workout-type-list/${type}`)
 
 export const fetchWorkoutsByExerciseRequest = (exercise) => axios.get(`/workout-exercise-list/${exercise}`)
+
+export const fetchRecordsRequest = () => axios.get(`/records}`)
+
+export const createRecordRequest = (exercise, volume) => axios.get(`/records/${exercise}/${volume}`)
+

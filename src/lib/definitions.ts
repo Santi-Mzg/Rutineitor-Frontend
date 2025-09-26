@@ -1,23 +1,20 @@
 export type UserType = {
-    _id: string;
+    id: string;
     username: string;
     email: string;
     age: string;
     weight: string;
     height: string;
     goal: string;
-    genre: string;
     isTrainer: boolean;
 }
 
 export type ExerciseType = {
     label: string;
-    isometric?: boolean;
-    weighted?: boolean;
-    volume?: string;
-    weight?: string;
-    // time?: string;
-    // distance?: string;
+    isometric: boolean;
+    weighted: boolean;
+    volume: string;
+    weight: string;
 }
 
 export type BlockType = {

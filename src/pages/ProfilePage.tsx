@@ -2,7 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { PersonalInfo } from "./personal-info"
-import { ExerciseRecords } from "./exercise-records"
+import { ExerciseRecords } from "./exercise-records.jsx"
 import { Milestones } from "./milestones"
 
 export default function ProfilePage() {

@@ -1,7 +1,6 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from "react"
-import { registerRequest, loginRequest, logoutRequest, modifyRequest,verifyTokenRequest } from '../api/auth.js';
+import { createContext, useContext, useEffect, useState, ReactNode } from "react"
+import { registerRequest, loginRequest, logoutRequest, modifyRequest, verifyTokenRequest } from '../api/auth.js';
 import { UserType } from '../lib/definitions.js';
-import Cookies from 'js-cookie'
 
 interface AuthContextType {
     signup: (user: UserType) => Promise<void>;
@@ -37,6 +36,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             const res = await registerRequest(user)
             setUser(res.data)
             setIsAuthenticated(true)
+
         } catch (error: any) {
             if (Array.isArray(error.response.data))
                 setErrors(error.response.data)
@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             console.log("res.data "+JSON.stringify(res.data))
             setUser(res.data)
             setIsAuthenticated(true)
+
         } catch (error: any) {
             if (Array.isArray(error.response.data)){
                 setErrors(error.response.data)
@@ -66,9 +67,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const signout = async () => {
         try {
             const res = await logoutRequest()
-            Cookies.remove("token")
             setUser(null)
             setIsAuthenticated(false)
+
         } catch (error: any) {
             if (Array.isArray(error.response.data)){
                 setErrors(error.response.data)
@@ -107,15 +108,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     useEffect(() => {
         async function checkLogin() {
-            const cookies = Cookies.get()
-
-            if (!cookies.token) {
-                setIsAuthenticated(false)
-                setUser(null)
-                setLoading(false)
-                return
-            }
-
             try {
                 const res = await verifyTokenRequest()
                 if (!res.data) {

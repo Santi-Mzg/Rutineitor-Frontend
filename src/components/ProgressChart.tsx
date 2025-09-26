@@ -25,8 +25,8 @@ const ProgressChart: React.FC<{ exercise: string }> = ({ exercise }) => {
                 .filter(ex => ex.label === exercise)
                 .map((ex: ExerciseType) => ({
                   date: workout.date,
-                  weight: parseFloat(ex.weight || '0'),
-                  reps: parseInt(ex.volume || '0', 10),
+                  weight: ex.weight || 0,
+                  reps: ex.volume || 0,
                 }))
             )
           );

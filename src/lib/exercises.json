@@ -1,12 +1,12 @@
 {
   "exercises": [
     {
-      "label": "Aperturas Anillas",
+      "label": "Apertura Anillas",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Aperturas Inclinadas",
+      "label": "Apertura Inclinadas",
       "isometric": false,
       "weighted": true
     },
@@ -21,7 +21,7 @@
       "weighted": false
     },
     {
-      "label": "Autralianas",
+      "label": "Autraliana",
       "isometric": false,
       "weighted": true
     },
@@ -81,6 +81,11 @@
       "weighted": false
     },
     {
+      "label": "Bandera Straddle a Full con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
       "label": "Bandera Tuck",
       "isometric": true,
       "weighted": false
@@ -109,6 +114,16 @@
       "label": "Caminata en Handstand",
       "isometric": false,
       "weighted": false
+    },
+    {
+      "label": "Colgarse Barra",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Colgarse Barra 1 Brazo",
+      "isometric": true,
+      "weighted": true
     },
     {
       "label": "Correr",
@@ -146,59 +161,104 @@
       "weighted": true
     },
     {
-      "label": "Dominadas",
+      "label": "Dominada",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Dominadas 1 brazo",
+      "label": "Dominada 1 brazo",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Dominadas 1 brazo Asistidas",
+      "label": "Dominada 1 brazo Asistidas",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Dominadas Abiertas",
+      "label": "Dominada 1 brazo Isométrica 90",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Dominada 1 brazo Isométrica Top",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Dominada Abierta",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Dominadas Arquero",
+      "label": "Dominada Arquero",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Dominadas Arquero Anillas",
+      "label": "Dominada Arquero Anillas",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Dominadas Cerradas",
+      "label": "Dominada Asistida con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Dominada Cerradas",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Dominadas Comando",
+      "label": "Dominada Chest to Bar",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Dominadas Explosivas",
-      "isometric": false,
-      "weighted": false
-    },
-    {
-      "label": "Dominadas Multipresa",
-      "isometric": false,
-      "weighted": false
-    },
-    {
-      "label": "Dominadas Supinas",
+      "label": "Dominada Comando",
       "isometric": false,
       "weighted": true
+    },
+    {
+      "label": "Dominada Explosiva",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Dominada Explosiva Asistida con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Dominada Isométrica 90",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Dominada Isométrica Top",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Dominada Multipresa",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Dominada Resistencia con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Dominada Supina",
+      "isometric": false,
+      "weighted": true
+    },
+    {
+      "label": "Dominada Typewritter",
+      "isometric": false,
+      "weighted": false
     },
     {
       "label": "Dragon Flag",
@@ -266,6 +326,11 @@
       "weighted": false
     },
     {
+      "label": "Flexión Isométrica",
+      "isometric": true,
+      "weighted": true
+    },
+    {
       "label": "Flexiones",
       "isometric": false,
       "weighted": true
@@ -277,6 +342,11 @@
     },
     {
       "label": "Flexiones Arquero",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Flexiones Asistencia con Banda",
       "isometric": false,
       "weighted": false
     },
@@ -331,37 +401,57 @@
       "weighted": false
     },
     {
+      "label": "Flexiones Resistencia con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
       "label": "Flexiones TigerBend",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Fondos",
+      "label": "Fondo",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Fondos Anillas",
+      "label": "Fondo Anillas",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Fondos Anillas Arquero",
+      "label": "Fondo Anillas Arquero",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Fondos Barra Horizontal",
+      "label": "Fondo Anillas Asistido con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Fondo Anillas Resistencia con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Fondo Asistido con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Fondo Barra Horizontal",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Fondos Barras Paralelas",
+      "label": "Fondo Hefesto",
       "isometric": false,
-      "weighted": true
+      "weighted": false
     },
     {
-      "label": "Fondos Hefesto",
+      "label": "Fondo Resistencia con Banda",
       "isometric": false,
       "weighted": false
     },
@@ -586,14 +676,24 @@
       "weighted": true
     },
     {
-      "label": "Muscle ups Anillas",
+      "label": "Muscle up Anillas",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Muscle ups Barra",
+      "label": "Muscle up Anillas con Banda",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Muscle up Barra",
       "isometric": false,
       "weighted": true
+    },
+    {
+      "label": "Muscle up Barra con Banda",
+      "isometric": false,
+      "weighted": false
     },
     {
       "label": "Pegboard",
@@ -786,52 +886,52 @@
       "weighted": false
     },
     {
-      "label": "Sentadillas",
+      "label": "Sentadilla",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Sentadillas Arquero",
+      "label": "Sentadilla Arquero",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Sentadillas Búlgaras",
+      "label": "Sentadilla Búlgara",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Sentadillas con Salto",
+      "label": "Sentadilla con Salto",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Sentadillas Frontales",
+      "label": "Sentadilla Frontal",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Sentadillas Isométricas",
+      "label": "Sentadilla Isométrica",
       "isometric": true,
       "weighted": true
     },
     {
-      "label": "Sentadillas Laterales",
+      "label": "Sentadilla Lateral",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Sentadillas Pausadas",
+      "label": "Sentadilla Pausada",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Sentadillas Shrimps",
+      "label": "Sentadilla Shrimps",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Sentadillas Sissy",
+      "label": "Sentadilla Sissy",
       "isometric": false,
       "weighted": false
     },
@@ -873,11 +973,6 @@
     {
       "label": "Tuck Planche",
       "isometric": true,
-      "weighted": false
-    },
-    {
-      "label": "Typewritters",
-      "isometric": false,
       "weighted": false
     },
     {

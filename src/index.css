@@ -94,15 +94,16 @@ button:focus-visible {
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  width: 100vh;
+  width: 100%;
   height: 6vh;
   font-size: 20px;
   margin: 5px;
+  padding: 0 1rem;
 }
 
 .more-info-button {
   position: absolute;
-  top: 60px; /* Distancia desde la parte superior */
+  top: 70px; /* Distancia desde la parte superior */
   right: 0px; /* Distancia desde la derecha */
   width: 30px;
   height: 30px;
@@ -193,65 +194,94 @@ button:focus-visible {
 }
 
 .current-day {
-  background-color: #78c2ad;
-  /* Change to your desired color */
-  color: white;
-  /* Text color */
+  background-color: #f3969a;
+  color: rgba(255, 255, 255, 0.637);
 }
 
 .selected-day {
-  background-color: #f3969a;
-  /* Change to your desired color */
-  color: white;
-  /* Text color */
+  background-color: #267bdb;
+  color: rgba(255, 255, 255, 0.637);
+}
+
+.fullbody-day {
+  position: relative;
+  background-color: #ff7b07;
+}
+
+.fullbody-day::after {
+  content: "F";
+  position: absolute;
+  bottom: 2px;  
+  right: 4px;  
+  font-size: 14px;
 }
 
 .push-day {
-  background: #ff7b07;
-  color: white;
-  /* Text color */
+  position: relative;
+  background-color: #cc0808;
+  color: rgba(255, 255, 255, 0.637);
+}
+
+.push-day::after {
+  content: "E";
+  position: absolute;
+  bottom: 2px;  
+  right: 4px;  
+  font-size: 14px;
 }
 
 .pull-day {
-  background: #fff307;
-  color: white;
-  /* Text color */
+  position: relative;
+  background-color: #07ffff;
+}
+
+.pull-day::after {
+  content: "T";
+  position: absolute;
+  bottom: 2px;  
+  right: 4px;  
+  font-size: 14px;
 }
 
 .leg-day {
-  background: #ff07b5;
-  color: white;
-  /* Text color */
+  position: relative;
+  background-color: #ff07b5;
+  color: rgba(255, 255, 255, 0.637);
 }
 
-.skill-day {
-  background: #ff7b07;
-  color: white;
-  /* Text color */
+.leg-day::after {
+  content: "P";
+  position: absolute;
+  bottom: 2px;  
+  right: 4px;  
+  font-size: 14px;
 }
 
 .mobility-day {
-  background: #07ffff;
-  color: white;
-  /* Text color */
+  position: relative;
+  background-color: #fff307;
 }
 
-.core-day {
-  background: #ff7b07;
-  color: white;
-  /* Text color */
-}
-
-.power-day {
-  background: #ff7b07;
-  color: white;
-  /* Text color */
+.mobility-day::after {
+  content: "M";
+  position: absolute;
+  bottom: 2px;  
+  right: 4px;  
+  font-size: 14px;
 }
 
 .cardio-day {
-  background: #ff7b07;
-  color: white;
-  /* Text color */
+  position: relative;
+  background-color: #07800d;
+  color: rgba(255, 255, 255, 0.637);
+}
+
+.cardio-day::after {
+  content: "C";
+  position: absolute;
+  bottom: 2px;  
+  right: 4px;  
+  font-size: 14px;
 }
 
 @layer base {

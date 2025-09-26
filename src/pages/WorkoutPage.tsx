@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Block from '../components/Block.jsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
 import 'react-calendar/dist/Calendar.css';
@@ -14,23 +13,12 @@ type WorkoutPageProps = {
     expandedCalendarPanel: boolean;
 };
 
-export default function WorkoutPage({ user, workout, setWorkout, expandedCalendarPanel }: WorkoutPageProps) {
-
-    useEffect(() => { // Guarda la rutina cuando se modifica
-        localStorage.setItem(workout.date + user.username, JSON.stringify(workout))
-    }, [workout])
-
-    useEffect(() => {
-        const savedWorkout = localStorage.getItem(workout.date + user.username);
-        if (savedWorkout) {
-            setWorkout(JSON.parse(savedWorkout));
-        }
-    }, []);
+export default function WorkoutPage({ workout, setWorkout, expandedCalendarPanel }: WorkoutPageProps) {
 
     // Funciones de la rutina
     // Funciones para manejo de bloques
     const createWorkout = (option: any) => {
-        setWorkout((prevWorkout: any) => ({
+        setWorkout((prevWorkout: WorkoutType) => ({
             ...prevWorkout,
             type: option.value
         }));
@@ -70,14 +58,12 @@ export default function WorkoutPage({ user, workout, setWorkout, expandedCalenda
     }
 
     const addExerciseToBlock = (blockIndex: number, exercise: ExerciseType) => {
-        const newExercise = {
+        const newExercise: ExerciseType = {
             label: exercise.label,
             isometric: exercise.isometric? exercise.isometric : false,
             weighted: exercise.weighted? exercise.weighted : false,
-            volume: "",
-            weight: "",
-            // time: "",
-            // distance: "",
+            volume: '',
+            weight: '',
         }
         const updatedBlocks = [...workout.blockList]
         updatedBlocks[blockIndex].exerciseList.push(newExercise)
@@ -112,24 +98,6 @@ export default function WorkoutPage({ user, workout, setWorkout, expandedCalenda
             blockList: updatedBlocks
         }))
     }
-    
-    // const addDistance = (blockIndex: number, exerciseIndex: number, distance: string) => {
-    //     const updatedBlocks = [...workout.blockList]
-    //     updatedBlocks[blockIndex].exerciseList[exerciseIndex].distance = distance
-    //     setWorkout(prevWorkout => ({
-    //         ...prevWorkout,
-    //         blockList: updatedBlocks
-    //     }))
-    // }
-
-    // const addTime = (blockIndex: number, exerciseIndex: number, time: string) => {
-    //     const updatedBlocks = [...workout.blockList]
-    //     updatedBlocks[blockIndex].exerciseList[exerciseIndex].time = time
-    //     setWorkout(prevWorkout => ({
-    //         ...prevWorkout,
-    //         blockList: updatedBlocks
-    //     }))
-    // }
 
 
     const moveExerciseDown = (blockIndex: number, exerciseIndex: number) => {
@@ -175,8 +143,6 @@ export default function WorkoutPage({ user, workout, setWorkout, expandedCalenda
     const exerciseActions = {
         addVolume,
         addWeight,
-        // addDistance,
-        // addTime,
         moveExerciseDown,
         moveExerciseUp,
         deleteExercise: deleteExerciseFromBlock,
@@ -197,7 +163,8 @@ export default function WorkoutPage({ user, workout, setWorkout, expandedCalenda
                                     exerciseList={block.exerciseList}
                                     modificable={workout.modificable}
                                     blockActions={blockActions}
-                                    exerciseActions={exerciseActions} />
+                                    exerciseActions={exerciseActions} 
+                                />
                             </div>
                             {workout.modificable && 
                                 <div>

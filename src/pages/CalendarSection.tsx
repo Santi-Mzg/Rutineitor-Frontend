@@ -37,19 +37,14 @@ export default function CalendarSection({
     const todayDate = new Date()
     const [dateParam, setDateParam] = useState(new Date())
 
-
-    
     useEffect(() => {
         if (dateParam < new Date(activeStartDate)) {
             setActiveStartDate(formatDate(dateParam));
         }
     }, [dateParam]);
 
-
-
     const handleDateClick = (date: Date) => {
 
-        console.log("Calendar ")
         if (date.getTime() === todayDate.getTime()) {
             navigate(`/workout`)
         }
@@ -76,7 +71,7 @@ export default function CalendarSection({
         })) 
 
         if (workout.modificable && workout.type !== '' && workout.blockList[0].exerciseList.length > 0) {
-            createOrUpdateWorkout(workout, user._id)
+            createOrUpdateWorkout(workout, user.id)
             
             setWorkoutList(prevWorkoutList => {
                 const updatedWorkoutList = [...prevWorkoutList, workout];
@@ -102,7 +97,7 @@ export default function CalendarSection({
 
     const cleanWorkout = () => {
         localStorage.removeItem(workout.date + user.username)
-        deleteWorkout(workout.date, user._id)
+        deleteWorkout(workout.date, user.id)
         setWorkout(prevWorkout => ({
             ...prevWorkout,
             type: '',
@@ -140,17 +135,11 @@ export default function CalendarSection({
                             case 'Empuje':
                                 return 'push-day';
                             case 'Tire':
-                                return 'pull-day';
+                                return ' pull-day';
                             case 'Pierna':
                                 return 'leg-day';
-                            case 'Skills':
-                                return 'skill-day';
                             case 'Movilidad':
                                 return 'mobility-day';
-                            case 'Core':
-                                return 'core-day';
-                            case 'Potencia':
-                                return 'power-day';
                             case 'Cardio':
                                 return 'cardio-day';
                     }
