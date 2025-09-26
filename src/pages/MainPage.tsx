@@ -96,7 +96,7 @@ export default function MainPage() {
 
 
     // Código de la seccion de calendario
-    const [expandedCalendarPanel, setExpandedCalendarPanel] = useState<boolean>(false);
+    const [expandedCalendarPanel, setExpandedCalendarPanel] = useState<boolean>(true);
 
 
     if (loading) {
@@ -113,21 +113,21 @@ export default function MainPage() {
                         <h2 className="font-bold text-center text-[#f3969a]" >{workout.type}</h2>
                         <button className='more-info-button' onClick={toggleCommentPanel}><FontAwesomeIcon icon={faComment} className="text-[30px] text-[khaki] z-1" /></button>
                     </div>
-                    {expandedCommentPanel && 
-                    <div className='w-full'>
-                        <textarea
-                            className='comment-panel'
-                            value={workout.comments}
-                            onChange={handleChange}
-                            placeholder="Comentarios..."
-                        />
-                    </div>
-                    ||
-                    <div className='w-full'>
-                        <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
-                        <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>    
-                    </div>
-                    }
+                    {expandedCommentPanel ? (
+                        <div className='w-full'>
+                            <textarea
+                                className='comment-panel'
+                                value={workout.comments}
+                                onChange={handleChange}
+                                placeholder="Comentarios..."
+                            />
+                        </div>
+                     ) : (
+                        <>
+                            <WorkoutPage user={user} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
+                            <CalendarSection user={user} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>    
+                        </>
+                    )}
                 </div>
             )}
 

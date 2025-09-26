@@ -154,7 +154,7 @@ export default function CalendarSection({
             {expandedCalendarPanel &&
             <div className='calendar-panel'>
                 <button className="panel-button" type="button" onClick={toggleCalendarPanel} >{"v"}</button>
-                <div className='btn-group text-white bg-white' style={{ width: '50vh'}}>
+                <div className='btn-group text-white bg-white lg:grid lg:grid-rows-2 lg:grid-cols-2 lg:gap-4 w-[50vh] mx-auto mb-16'>
                     <button className="big-button" type="button" onClick={saveOrEditWorkout}><FontAwesomeIcon icon={(workout.modificable && faSave || faEdit)} style={{fontSize: '30px'}} /></button>
                     <button className="big-button" type="button" onClick={copyWorkout}><FontAwesomeIcon icon={faCopy} style={{fontSize: '30px'}} /></button>
                     <button className="big-button" type="button" onClick={pasteWorkout}><FontAwesomeIcon icon={faClipboard} style={{fontSize: '30px'}} /></button>

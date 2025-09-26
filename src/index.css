@@ -193,6 +193,65 @@ button:focus-visible {
   background-color: white;
 }
 
+
+
+
+/* Desktop >= 1024px */
+@media (min-width: 1024px) {
+  .parent-section {
+    flex-direction: row; /* lado a lado */
+    align-items: flex-start;
+    height: 90vh;
+    padding: 10px;
+  }
+
+  .routine-section-expanded,
+  .routine-section-reduced {
+    height: auto; /* que crezca con el contenido */
+    flex: 1;      /* que ocupen proporcionalmente */
+    min-width: 50%;
+    min-height: 100%;
+  }
+
+  .calendar-panel {
+    position: relative;
+    height: auto;
+    width: 50%;
+    min-width: 400px;
+    min-height: 100%;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .panel-button {
+    display: none !important;
+  }
+
+  .comment-panel {
+    position: absolute;
+    width: 380px;
+    height: auto;
+    min-height: 50vh;
+  }
+
+  .more-info-button {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-left: auto; 
+  }
+    
+  .react-calendar {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+
+
+/* Calendar buttons*/
 .current-day {
   background-color: #f3969a;
   color: rgba(255, 255, 255, 0.637);
@@ -233,6 +292,7 @@ button:focus-visible {
 .pull-day {
   position: relative;
   background-color: #07ffff;
+  
 }
 
 .pull-day::after {
@@ -377,3 +437,6 @@ button:focus-visible {
 .text-fitness-secondary {
   color: hsl(var(--fitness-secondary));
 }
+
+
+
