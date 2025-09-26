@@ -31,8 +31,8 @@ export default function WorkoutsByExercise() {
         let volumeWeights: Record<number, number> = {};
       
         exerciseData.forEach((exercise: ExerciseType) => {
-          const volume = exercise.volume !== "Max" ? exercise.volume : Infinity;
-          const weight = exercise.weight !== "Libre" ? exercise.weight : 0;
+          const volume: number = Number(exercise.volume);
+          const weight: number = Number(exercise.weight);
   
       
           if (!volumeWeights[volume] || volumeWeights[volume] < weight) {

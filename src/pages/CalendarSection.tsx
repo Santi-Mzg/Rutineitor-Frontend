@@ -154,11 +154,11 @@ export default function CalendarSection({
             {expandedCalendarPanel &&
             <div className='calendar-panel'>
                 <button className="panel-button" type="button" onClick={toggleCalendarPanel} >{"v"}</button>
-                <div className='btn-group text-white bg-white lg:grid lg:grid-rows-2 lg:grid-cols-2 lg:gap-4 w-[50vh] mx-auto mb-16'>
-                    <button className="big-button" type="button" onClick={saveOrEditWorkout}><FontAwesomeIcon icon={(workout.modificable && faSave || faEdit)} style={{fontSize: '30px'}} /></button>
-                    <button className="big-button" type="button" onClick={copyWorkout}><FontAwesomeIcon icon={faCopy} style={{fontSize: '30px'}} /></button>
-                    <button className="big-button" type="button" onClick={pasteWorkout}><FontAwesomeIcon icon={faClipboard} style={{fontSize: '30px'}} /></button>
-                    <button className="big-button" type="button" onClick={cleanWorkout}><FontAwesomeIcon icon={faTrashAlt} style={{fontSize: '30px'}} /></button>
+                <div className='btn-group text-white bg-white w-full lg:grid lg:grid-rows-2 lg:grid-cols-2 lg:gap-4 lg:w-[50vh] lg:mx-auto lg:mb-16'>
+                    <button className="big-button border-gray-400" type="button" onClick={saveOrEditWorkout}><FontAwesomeIcon icon={(workout.modificable && faSave || faEdit)} style={{fontSize: '30px'}} /></button>
+                    <button className="big-button border-gray-400" type="button" onClick={copyWorkout}><FontAwesomeIcon icon={faCopy} style={{fontSize: '30px'}} /></button>
+                    <button className="big-button border-gray-400" type="button" onClick={pasteWorkout}><FontAwesomeIcon icon={faClipboard} style={{fontSize: '30px'}} /></button>
+                    <button className="big-button border-gray-400" type="button" onClick={cleanWorkout}><FontAwesomeIcon icon={faTrashAlt} style={{fontSize: '30px'}} /></button>
                 </div>
                 <Calendar
                     onClickDay={handleDateClick}
