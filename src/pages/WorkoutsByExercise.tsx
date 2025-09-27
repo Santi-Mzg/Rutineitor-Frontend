@@ -14,12 +14,12 @@ export default function WorkoutsByExercise() {
     const { user } = useAuth()
 
     const [selectedExercise, setSelectedExercise] = useState<string>(() => {
-        const localValue = user ? localStorage.getItem(user.username+'selectedExercise') : null
+        const localValue = user ? localStorage.getItem(user.username+' - selectedExercise - WBE') : null
         return localValue ? JSON.parse(localValue) : null
     });
 
     const [workoutList, setWorkoutList] = useState<WorkoutType[]>(() => {
-        const localValue = user ? localStorage.getItem(user.username+'workoutList') : null;
+        const localValue = user ? localStorage.getItem(user.username+' - workoutList - WBE') : null;
         return localValue ? JSON.parse(localValue) : []
     });
 
@@ -59,8 +59,8 @@ export default function WorkoutsByExercise() {
 
     useEffect(() => {
         if (user) {
-            localStorage.setItem(user.username+'workoutList', JSON.stringify(workoutList));
-            localStorage.setItem(user.username+'selectedExercise', JSON.stringify(selectedExercise));
+            localStorage.setItem(user.username+' - workoutList - WBE', JSON.stringify(workoutList));
+            localStorage.setItem(user.username+' - selectedExercise - WBE', JSON.stringify(selectedExercise));
         }
     }, [workoutList]);
 
@@ -72,7 +72,7 @@ export default function WorkoutsByExercise() {
             <Toolbar />
             <div className='parent-section py-4 flex-col flex justify-center items-center'>
                 <div className='header'>
-                    <DropDownWithSearch onChange={(option: any) => setSelectedExercise(option.label)} options={exercises} text={"Elegir Ejercicio..."} />
+                    <DropDownWithSearch onChange={(option: any) => setSelectedExercise(option.label)} options={exercises} text={selectedExercise ? selectedExercise : "Elegir Ejercicio..."} />
                 </div>
                 {workoutList.length === 0 && <h2 className='text-black py-2'>Sin registros</h2> 
                 ||

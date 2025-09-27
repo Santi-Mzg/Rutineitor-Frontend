@@ -35,13 +35,17 @@ export default function CalendarSection({
 
     const navigate = useNavigate()
     const todayDate = new Date()
-    const [dateParam, setDateParam] = useState(new Date())
+    const [dateParam, setDateParam] = useState(new Date(workout.date));
 
     useEffect(() => {
         if (dateParam < new Date(activeStartDate)) {
             setActiveStartDate(formatDate(dateParam));
         }
     }, [dateParam]);
+
+    useEffect(() => {
+        setDateParam(new Date(workout.date));
+    }, [workout.date]);
 
     const handleDateClick = (date: Date) => {
 
@@ -111,6 +115,10 @@ export default function CalendarSection({
         });
     }
 
+    const hasAtLeastOneExercise = () => {
+        return workout.blockList.some(block => block.exerciseList.length > 0);
+    }
+
     const tileClassName = ({ date, view }: { date: Date; view: string }) => {
 
         // Check if the tile represents the current date
@@ -155,10 +163,10 @@ export default function CalendarSection({
             <div className='calendar-panel'>
                 <button className="panel-button" type="button" onClick={toggleCalendarPanel} >{"v"}</button>
                 <div className='btn-group text-white bg-white w-full lg:grid lg:grid-rows-2 lg:grid-cols-2 lg:gap-4 lg:w-[50vh] lg:mx-auto lg:mb-16'>
-                    <button className="big-button border-gray-400" type="button" onClick={saveOrEditWorkout}><FontAwesomeIcon icon={(workout.modificable && faSave || faEdit)} style={{fontSize: '30px'}} /></button>
-                    <button className="big-button border-gray-400" type="button" onClick={copyWorkout}><FontAwesomeIcon icon={faCopy} style={{fontSize: '30px'}} /></button>
-                    <button className="big-button border-gray-400" type="button" onClick={pasteWorkout}><FontAwesomeIcon icon={faClipboard} style={{fontSize: '30px'}} /></button>
-                    <button className="big-button border-gray-400" type="button" onClick={cleanWorkout}><FontAwesomeIcon icon={faTrashAlt} style={{fontSize: '30px'}} /></button>
+                    <button className="big-button border-gray-600 disabled:border-gray-600 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-75" type="button" onClick={saveOrEditWorkout} disabled={!hasAtLeastOneExercise()}><FontAwesomeIcon icon={(workout.modificable && faSave || faEdit)} style={{fontSize: '30px'}} /></button>
+                    <button className="big-button border-gray-600" type="button" onClick={copyWorkout}><FontAwesomeIcon icon={faCopy} style={{fontSize: '30px'}} /></button>
+                    <button className="big-button border-gray-600" type="button" onClick={pasteWorkout}><FontAwesomeIcon icon={faClipboard} style={{fontSize: '30px'}} /></button>
+                    <button className="big-button border-gray-600" type="button" onClick={cleanWorkout}><FontAwesomeIcon icon={faTrashAlt} style={{fontSize: '30px'}} /></button>
                 </div>
                 <Calendar
                     onClickDay={handleDateClick}

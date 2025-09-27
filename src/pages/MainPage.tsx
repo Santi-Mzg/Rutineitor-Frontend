@@ -28,16 +28,22 @@ export default function MainPage() {
         modificable: true,
     })
 
-    useEffect(() => { // Guarda la rutina cuando se modifica
-        localStorage.setItem(workout.date + user?.username, JSON.stringify(workout))
-    }, [workout])
+    console.log("actualDate"+JSON.stringify(actualDate));
+    console.log("activeStartDate"+JSON.stringify(activeStartDate));
+
+
+    useEffect(() => { // Guarda la rutina cuando se modifica menos en el primero render
+        if(workout.type !== '') {
+            localStorage.setItem(workout.date + user?.username, JSON.stringify(workout));
+        }
+    }, [workout]);
 
     useEffect(() => {
         const fetchWorkouts = async (date: string, user_id: string) => {
             try {
 
                 const data = await getCalendarWorkouts(date, user_id);
-                setWorkoutList(data); // Asigna los datos de los entrenamientos
+                setWorkoutList(data);
 
             } catch (error) {
                 console.error('Error fetching workouts:', error);
@@ -58,6 +64,7 @@ export default function MainPage() {
         let foundWorkout: WorkoutType | undefined
 
         const savedWorkout = localStorage.getItem(actualDate + user?.username);
+        console.log("savedWorkout"+JSON.stringify(savedWorkout));
         if (savedWorkout) {
             foundWorkout = JSON.parse(savedWorkout);
         }
@@ -68,15 +75,15 @@ export default function MainPage() {
                 setActiveStartDate(actualDate);
         }
         
-        console.log("foundWOD"+JSON.stringify(foundWorkout));
-
         setWorkout({
             date: actualDate,
             type: foundWorkout?.type || '',
             blockList: foundWorkout?.blockList || [],
             comments: foundWorkout?.comments || '',
-            modificable: foundWorkout?.modificable || false
+            modificable: foundWorkout ? foundWorkout.modificable : true
         });
+        
+        console.log("foundWOD"+JSON.stringify(foundWorkout));
 
     }, [actualDate, workoutList]);
 
