@@ -8,14 +8,11 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      devOptions: {
-        enabled: false,
-      },
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
         name: 'Rutineitor',
         short_name: 'Rutineitor',
-        description: 'Rutineitor - Creador de rutinas de entrenamiento',
+        description: 'Creación y registro de rutinas de entrenamiento',
         theme_color: '#ffffff',
         icons: [
           {
@@ -37,7 +34,10 @@ export default defineConfig({
         ],
         "background_color": "#ffffff",
         "display": "standalone"
-      }
+      },
+      devOptions: {
+        enabled: false,
+      },
     })
   ],
   base: '/Rutineitor-Frontend/',

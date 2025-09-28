@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const apiUrl = 'https://rutineitor-backend.onrender.com/api';
-const localUrl = 'http://localhost:3000/api';
+const apiUrl = import.meta.env.VITE_API_URL;
+const localUrl = import.meta.env.VITE_LOCAL_URL;
 
 const instance = axios.create({
     baseURL: apiUrl,
