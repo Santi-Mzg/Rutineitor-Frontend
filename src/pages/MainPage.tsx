@@ -11,6 +11,7 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function MainPage() {
+
     const { user } = useAuth() 
     const { date } = useParams() // Obtiene la fecha pasada en la URL de la página
     const todayDate = new Date() // Obtiene la fecha de hoy
@@ -28,9 +29,24 @@ export default function MainPage() {
         modificable: true,
     })
 
-    console.log("actualDate"+JSON.stringify(actualDate));
-    console.log("activeStartDate"+JSON.stringify(activeStartDate));
+    const getDateTextFormat = () => {
+        const [year, month, day] = actualDate.split('-').map(Number);
+        const dayOfWeek = new Date(actualDate).getDay(); 
+        let dayOfWeekName = '';
+        switch (dayOfWeek) {
+            case 0: dayOfWeekName = 'Lunes'; break;
+            case 1: dayOfWeekName = 'Martes'; break;
+            case 2: dayOfWeekName = 'Miércoles'; break;
+            case 3: dayOfWeekName = 'Jueves'; break;
+            case 4: dayOfWeekName = 'Viernes'; break;
+            case 5: dayOfWeekName = 'Sábado'; break;
+            case 6: dayOfWeekName = 'Domingo'; break;
+            default: return '';
+        }   
 
+        return `${dayOfWeekName} ${day}/${month}/${year}`;
+    }
+    
 
     useEffect(() => { // Guarda la rutina cuando se modifica menos en el primero render
         if(workout.type !== '') {
@@ -64,7 +80,6 @@ export default function MainPage() {
         let foundWorkout: WorkoutType | undefined
 
         const savedWorkout = localStorage.getItem(actualDate + user?.username);
-        console.log("savedWorkout"+JSON.stringify(savedWorkout));
         if (savedWorkout) {
             foundWorkout = JSON.parse(savedWorkout);
         }
@@ -83,8 +98,6 @@ export default function MainPage() {
             modificable: foundWorkout ? foundWorkout.modificable : true
         });
         
-        console.log("foundWOD"+JSON.stringify(foundWorkout));
-
     }, [actualDate, workoutList]);
 
     // Código de la seccion de comentarios
@@ -116,8 +129,9 @@ export default function MainPage() {
             {user && (
                 <div className='parent-section'>
                     <div className='header'>
-                        <h2 >Entrenamiento del Día:</h2>
-                        <h2 className="font-bold text-center text-[#f3969a]" >{workout.type}</h2>
+                        <h1 className='text-center text-2xl font-bold mb-2 text-[#f3969a]'>{getDateTextFormat()}</h1>
+                        <h2>Entrenamiento del Día:</h2>
+                        <h2 className='font-bold text-center text-[#f3969a]'>{workout.type}</h2>
                         <button className='more-info-button' onClick={toggleCommentPanel}><FontAwesomeIcon icon={faComment} className="text-[30px] text-[khaki] z-1" /></button>
                     </div>
                     {expandedCommentPanel ? (

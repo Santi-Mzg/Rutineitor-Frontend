@@ -1,6 +1,6 @@
 import axios from './axios'
 
-export const subscribeRequest = (id, subscription) => axios.post(`/webpush/subscribe`, { id, subscription })
+export const subscribeRequest = (userId, subscription) => axios.post(`/webpush/subscribe`, { userId, subscription })
 
 export const unsubscribeRequest = (endpoint) => axios.post(`/webpush/unsubscribe`, { endpoint })
 

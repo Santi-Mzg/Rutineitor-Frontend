@@ -1,5 +1,6 @@
 import { deleteWorkoutRequest, createOrUpdateWorkoutRequest, getCalendarWorkoutsRequest, fetchWorkoutsByTypeRequest, fetchWorkoutsByExerciseRequest} from "../../api/workout"
 import { WorkoutType } from "../definitions";
+import { sendWebPush } from "./push";
 
 export const getCalendarWorkouts = async (date: string, id:string) => {
     try {
@@ -16,11 +17,9 @@ export const getCalendarWorkouts = async (date: string, id:string) => {
 
 export const createOrUpdateWorkout = async (workout: WorkoutType, id:string) => {
     try {
-        console.log("TO SAVE "+id+" "+JSON.stringify(workout))            
 
         const res = await createOrUpdateWorkoutRequest(workout, id)
-        console.log("SAVED "+JSON.stringify(res.data))            
-        
+
         return res.data
 
     } catch (error) {

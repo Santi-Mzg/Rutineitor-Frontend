@@ -1,9 +1,10 @@
-import React, { createContext, ReactNode, useEffect, useState } from "react"
+import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import {
   checkPermissionStateAndAct,
   notificationUnsupported,
   registerAndSubscribe,
-  unsubscribe
+  unsubscribe,
+  sendWebPush
 } from "../lib/actions/push"
 import { useAuth } from "./AuthContext"
 
@@ -13,6 +14,7 @@ interface WebPushContextType {
   unsupported: boolean
   register: () => void
   unregister: () => void
+  sendNotification: (title: string | null, message: string | null) => void
 }
 
 interface WebPushProviderProps {
@@ -23,8 +25,15 @@ export const WebPushContext = createContext<WebPushContextType>({
     subscription: null,
     unsupported: false,
     register: () => {},
-    unregister: () => {}
+    unregister: () => {},
+    sendNotification: (title: string | null, message: string | null) => {}
 })
+
+export const useWebPush = () => {
+    const context = useContext(WebPushContext)
+    if (!context) throw new Error("useWebPush must be used within a WebPushProvider")
+    return context
+}
 
 export const WebPushProvider = ({ children }: WebPushProviderProps) => {
   const { user } = useAuth()
@@ -38,9 +47,11 @@ export const WebPushProvider = ({ children }: WebPushProviderProps) => {
     if (!isUnsupported && user?.id) {
       checkPermissionStateAndAct(user?.id, setSubscription)
     }
-  }, [user])
+  }, [user?.id])
+
 
   const register = () => {
+
     if (user?.id) {
       registerAndSubscribe(user.id, setSubscription)
     }
@@ -50,8 +61,14 @@ export const WebPushProvider = ({ children }: WebPushProviderProps) => {
     unsubscribe(setSubscription)
   }
 
+  const sendNotification = (title: string | null, message: string | null) => {
+    if (subscription) {
+      sendWebPush(title, message)
+    }
+  }
+
   return (
-    <WebPushContext.Provider value={{ subscription, unsupported, register, unregister }}>
+    <WebPushContext.Provider value={{ subscription, unsupported, register, unregister, sendNotification }}>
       {children}
     </WebPushContext.Provider>
   )

@@ -14,14 +14,13 @@ export default function UserMainPage() {
     
     const { username, date } = useParams() // Obtiene el username y la fecha pasada en la URL de la página
     const [userClient, setUserClient] = useState<UserType>({
-        _id: '',
+        id: '',
         username: '',
         email: '',
         age: '',
         weight: '',
         height: '',
         goal: '',
-        genre: '',
         isTrainer: false,
     });
 
@@ -69,9 +68,7 @@ export default function UserMainPage() {
                 setLoading(false);
             }
         };
-        fetchWorkouts(activeStartDate, userClient._id);
-        console.log("ACTIVE "+JSON.stringify(activeStartDate))
-        console.log("id "+JSON.stringify(userClient._id))
+        fetchWorkouts(activeStartDate, userClient.id);
 
     }, [activeStartDate, userClient]);
 

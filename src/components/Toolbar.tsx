@@ -75,6 +75,12 @@ function Toolbar() {
           >
             {user ? user.username : "Usuario"}
           </h2>
+
+          <form className="hidden md:flex" onSubmit={onSubmit}>
+            <Button className="btn btn-secondary my-0 my-sm-0 py-1 border-transparent text-gray-600" type="submit">
+                <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '30px' }} />
+            </Button>
+          </form>
         </div>
 
         {/* Mobile Menu */}

@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage';
 import WorkoutsByType from './pages/WorkoutsByType';
 import WorkoutsByExercise from './pages/WorkoutsByExercise';
 import { AuthProvider } from './context/AuthContext';
+import { WebPushProvider } from './context/WebpushContext';
 import ProtectedRoute from './ProtectedRoute';
 import ProfilePage from './pages/ProfilePage';
 import UsersList from './pages/UserListPage';
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <WebPushProvider>
         <HashRouter>
           <Routes>
             <Route path="/register" element={<RegisterPage />} />
@@ -32,6 +34,7 @@ function App() {
             </Route>
           </Routes>
         </HashRouter>
+      </WebPushProvider>
     </AuthProvider>
   )
 }

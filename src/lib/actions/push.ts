@@ -35,8 +35,8 @@ export async function registerAndSubscribe(
   try {
     const registration = await navigator.serviceWorker.ready;
     const existingSubscription = await registration.pushManager.getSubscription();
-        
-    if (!existingSubscription) 
+
+    if (!existingSubscription)
       await subscribe(userId, onSubscribe);
     else 
       onSubscribe(existingSubscription);
@@ -52,10 +52,10 @@ async function subscribe(
 ): Promise<void> {
   
   try {
+
     const registration = await navigator.serviceWorker.ready;
 
-  const convertedKey = urlBase64ToUint8Array(import.meta.env.VITE_VAPID_PUBLIC_KEY || '');
-
+    const convertedKey = urlBase64ToUint8Array(import.meta.env.VITE_VAPID_PUBLIC_KEY || '');
     // Crear nueva suscripción con la VAPID actual
     const newSubscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
@@ -94,9 +94,9 @@ export async function unsubscribe(
 }
 
 export async function sendWebPush(title: string | null, message: string | null,): Promise<void> {
+
   const registration = await navigator.serviceWorker.ready;
   const subscription = await registration.pushManager.getSubscription();
-        
 
   const pushBody = {
     title: title ?? 'Test Push Notification',
@@ -107,10 +107,13 @@ export async function sendWebPush(title: string | null, message: string | null,)
   };
   
   if(subscription) {
-    const res = await sendWebPushRequest(subscription.endpoint, pushBody);
+    try {
+      await sendWebPushRequest(subscription.endpoint, pushBody);
+    }
 
-    // const result = await res.json();
-    console.log(res);
+    catch (e) {
+      console.error('Failed to send push message cause of: ', e);
+    }
   }
 }
 

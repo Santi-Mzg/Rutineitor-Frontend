@@ -7,6 +7,7 @@ import { faTrashAlt, faSave, faEdit, faCopy, faClipboard } from '@fortawesome/fr
 import { createOrUpdateWorkout, deleteWorkout } from '../lib/actions/workout.ts';
 import { formatDate } from '../lib/utils.ts';
 import { WorkoutType, UserType } from '../lib/definitions.ts';
+import { useWebPush } from '../context/WebpushContext.tsx';
 
 interface CalendarSectionProps {
     user: UserType;
@@ -31,11 +32,20 @@ export default function CalendarSection({
     activeStartDate,
     setActiveStartDate
 }: CalendarSectionProps) {
-
-
+    const { register, unsupported, subscription, sendNotification } = useWebPush()
     const navigate = useNavigate()
     const todayDate = new Date()
     const [dateParam, setDateParam] = useState(new Date(workout.date));
+
+    useEffect(() => {
+        console.log("Web Push Subscription: ", subscription)
+
+        if(unsupported)
+            console.log("Web Push is not supported")
+        if(!subscription)
+            register()
+
+    }, []);
 
     useEffect(() => {
         if (dateParam < new Date(activeStartDate)) {
@@ -72,8 +82,8 @@ export default function CalendarSection({
         setWorkout(prevWorkout => ({
             ...prevWorkout,
             modificable: !prevWorkout.modificable
-        })) 
-
+        }));
+        
         if (workout.modificable && workout.type !== '' && workout.blockList[0].exerciseList.length > 0) {
             createOrUpdateWorkout(workout, user.id)
             
@@ -86,7 +96,19 @@ export default function CalendarSection({
 
     const copyWorkout = () => {
         localStorage.setItem(user.username + "clipboard", JSON.stringify(workout))
+        // handleSendNotification("Test Push", "This is a test push notification")
     }
+
+    // const handleSendNotification = (title: string, message: string) => {
+    //     console.log("Web Push Subscription: ", subscription)
+
+    //     if(unsupported)
+    //         console.log("Web Push is not supported")
+    //     if(!subscription)
+    //         register()
+
+    //     sendNotification(title, message)
+    // }
 
     const pasteWorkout = () => {
         const clipboardWorkoutJSON = localStorage.getItem(user.username + "clipboard")

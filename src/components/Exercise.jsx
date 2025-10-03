@@ -11,15 +11,12 @@ export default function Exercise({ exercise, modificable, blockIndex, exerciseLi
     function calcularKmPorMin(tiempo, distancia) {
         const [hh, mm, ss] = tiempo.split(":").map(Number);
         const minutosTotales = hh * 60 + mm + ss / 60;
-        const promedio = Math.round(minutosTotales / distancia) * 100 / 100;
+        const promedio = Math.round(minutosTotales / distancia * 100) / 100;
 
         const mmRet = Math.floor(promedio);
         const segundos = Math.round((promedio - Math.floor(promedio)) * 60);
         const ssRet = String(segundos).padStart(2, '0');
 
-        console.log(promedio);
-        console.log(segundos);
-        console.log(ssRet);
         return `${mmRet}:${ssRet}`;
     }
 
