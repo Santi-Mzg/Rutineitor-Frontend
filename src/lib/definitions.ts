@@ -7,6 +7,8 @@ export type UserType = {
     height: string;
     goal: string;
     isTrainer: boolean;
+    updatedAt?: string;
+    createdAt?: string;
 }
 
 export type ExerciseType = {

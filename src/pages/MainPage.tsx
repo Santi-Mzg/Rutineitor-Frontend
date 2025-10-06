@@ -9,10 +9,12 @@ import { formatDate } from '../lib/utils.ts';
 import Toolbar from '../components/Toolbar.tsx';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useWebPush } from '../context/WebpushContext.tsx';
 
 export default function MainPage() {
 
     const { user } = useAuth() 
+    const { register, unsupported, subscription, sendNotification } = useWebPush()
     const { date } = useParams() // Obtiene la fecha pasada en la URL de la página
     const todayDate = new Date() // Obtiene la fecha de hoy
     const firstDayOfMonth = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1); // Primer día del mes actual
@@ -28,6 +30,31 @@ export default function MainPage() {
         comments: '',
         modificable: true,
     })
+
+    useEffect(() => {
+        console.log("Web Push Subscription: ", subscription)
+
+        if(unsupported)
+            console.log("Web Push is not supported")
+        if(!subscription)
+            register()
+
+    }, []);
+
+
+
+    const handleSendNotification = (title: string | null, message: string | null) => {
+        console.log("Web Push Subscription: ", subscription)
+
+        if(unsupported)
+            console.log("Web Push is not supported")
+        if(!subscription) {
+            register()
+            console.log("Web Push not subscribed, registering...")
+        }
+
+        sendNotification(title, message)
+    }
 
     const getDateTextFormat = () => {
         const [year, month, day] = actualDate.split('-').map(Number);
@@ -112,6 +139,7 @@ export default function MainPage() {
 
     const toggleCommentPanel = () => {
         setExpandedCommentPanel((prevState => !prevState));
+        handleSendNotification(null, null)
     };
 
 

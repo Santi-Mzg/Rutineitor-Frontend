@@ -9,9 +9,11 @@ import Toolbar from '../components/Toolbar.tsx';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchUser } from '../lib/actions/user.ts';
+import { useAuth } from '../context/AuthContext.tsx';
 
 export default function UserMainPage() {
     
+    const { user } = useAuth() 
     const { username, date } = useParams() // Obtiene el username y la fecha pasada en la URL de la página
     const [userClient, setUserClient] = useState<UserType>({
         id: '',
@@ -57,45 +59,76 @@ export default function UserMainPage() {
         modificable: true,
     })
 
+    const getDateTextFormat = () => {
+        const [year, month, day] = actualDate.split('-').map(Number);
+        const dayOfWeek = new Date(actualDate).getDay(); 
+        let dayOfWeekName = '';
+        switch (dayOfWeek) {
+            case 0: dayOfWeekName = 'Lunes'; break;
+            case 1: dayOfWeekName = 'Martes'; break;
+            case 2: dayOfWeekName = 'Miércoles'; break;
+            case 3: dayOfWeekName = 'Jueves'; break;
+            case 4: dayOfWeekName = 'Viernes'; break;
+            case 5: dayOfWeekName = 'Sábado'; break;
+            case 6: dayOfWeekName = 'Domingo'; break;
+            default: return '';
+        }   
+
+        return `${dayOfWeekName} ${day}/${month}/${year}`;
+    }
+
+    useEffect(() => { // Guarda la rutina cuando se modifica menos en el primero render
+        if(workout.type !== '') {
+            localStorage.setItem(workout.date + userClient?.username, JSON.stringify(workout));
+        }
+    }, [workout]);
+    
+
     useEffect(() => {
         const fetchWorkouts = async (date: string, user_id: string) => {
             try {
+
                 const data = await getCalendarWorkouts(date, user_id);
-                setWorkoutList(data); // Asigna los datos de los entrenamientos
+                setWorkoutList(data);
+
             } catch (error) {
                 console.error('Error fetching workouts:', error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchWorkouts(activeStartDate, userClient.id);
-
-    }, [activeStartDate, userClient]);
+        console.log("USERCLIENTID"+ JSON.stringify(userClient))
+        
+        fetchWorkouts(activeStartDate, userClient?.id || '');
+        
+    }, [activeStartDate, userClient?.id]);
 
     // Actualiza el entrenamiento según la fecha actual
     useEffect(() => {
-        // const localWorkout = localStorage.getItem(actualDate + userClient?.username || '');
-        let foundWorkout
-        //  = localWorkout ? JSON.parse(localWorkout) : null;
         const actualDateDATE = new Date(actualDate)
         const activeStartDateDATE = new Date(activeStartDate)        
-        
-        if(!foundWorkout) { // Si no se encuentra un entrenamiento para la fecha actual en local storage se busca en la lista fetcheada
+
+        let foundWorkout: WorkoutType | undefined
+
+        const savedWorkout = localStorage.getItem(actualDate + userClient?.username);
+        if (savedWorkout) {
+            foundWorkout = JSON.parse(savedWorkout);
+        }
+        else  {
             foundWorkout = workoutList.find((wod) => wod.date.includes(actualDate));        
 
             if(!foundWorkout && actualDateDATE < activeStartDateDATE) // Si se sigue sin encontrar y es más antiguo que la fecha mas temprana de fetcheo se actualiza y hace refetch.
-                setActiveStartDate(actualDate)
+                setActiveStartDate(actualDate);
         }
-        console.log("FOUND "+JSON.stringify(foundWorkout))
-
+        
         setWorkout({
             date: actualDate,
             type: foundWorkout?.type || '',
             blockList: foundWorkout?.blockList || [],
             comments: foundWorkout?.comments || '',
-            modificable: foundWorkout ? false : true,
+            modificable: foundWorkout ? foundWorkout.modificable : true
         });
-
+        
     }, [actualDate, workoutList]);
 
 
@@ -125,28 +158,33 @@ export default function UserMainPage() {
     return (
         <div className='w-screen'>
             <Toolbar />
-            <div className='parent-section'>
-                <div className='header'>
-                    <h2>Entrenamiento del Día:</h2>
-                    <h2 style={{ color: '#f3969a', fontWeight: 'bold', textAlign: 'center' }}>{workout.type}</h2>
-                    <button className='more-info-button' onClick={toggleCommentPanel}><FontAwesomeIcon icon={faComment} style={{fontSize: '30px', color: 'khaki', zIndex: 1}} /></button>
+            {user && userClient && (
+                <div className='parent-section'>
+                    <div className='header'>
+                        <h1 className='text-center text-2xl font-bold mb-2 text-[#f3969a]'>{getDateTextFormat()}</h1>
+                        <h2 className='text-center'>Entrenamiento del Día de</h2>
+                        <h2 className='text-center font-bold text-[#78c2ad]'>{userClient.username}:</h2>
+                        <h2 className='font-bold text-center text-[#f3969a]'>{workout.type}</h2>
+                        <button className='more-info-button' onClick={toggleCommentPanel}><FontAwesomeIcon icon={faComment} className="text-[30px] text-[khaki] z-1" /></button>
+                    </div>  
+                    {expandedCommentPanel ? (
+                        <div className='w-full'>
+                            <textarea
+                                className='comment-panel'
+                                value={workout.comments}
+                                onChange={handleChange}
+                                placeholder="Comentarios..."
+                            />
+                        </div>
+                     ) : (
+                        <>
+                            <WorkoutPage user={userClient} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
+                            <CalendarSection user={userClient} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>    
+                        </>
+                    )}
                 </div>
-                {expandedCommentPanel && 
-                <div>
-                    <textarea
-                        className='comment-panel'
-                        value={workout.comments}
-                        onChange={handleChange}
-                        placeholder="Comentarios..."
-                    />
-                </div>
-                ||
-                <div className='w-full'>
-                    <WorkoutPage user={userClient} workout={workout} setWorkout={setWorkout} expandedCalendarPanel={expandedCalendarPanel}/>
-                    <CalendarSection user={userClient} workout={workout} setWorkout={setWorkout} workoutList={workoutList} setWorkoutList={setWorkoutList} expandedCalendarPanel={expandedCalendarPanel} setExpandedCalendarPanel={setExpandedCalendarPanel} activeStartDate={activeStartDate} setActiveStartDate={setActiveStartDate}/>
-                </div>
-                }
-            </div>
+            )}
+
         </div>
     )
 }

@@ -7,7 +7,7 @@ import { faTrashAlt, faSave, faEdit, faCopy, faClipboard } from '@fortawesome/fr
 import { createOrUpdateWorkout, deleteWorkout } from '../lib/actions/workout.ts';
 import { formatDate } from '../lib/utils.ts';
 import { WorkoutType, UserType } from '../lib/definitions.ts';
-import { useWebPush } from '../context/WebpushContext.tsx';
+import { useAuth } from '../context/AuthContext.tsx';
 
 interface CalendarSectionProps {
     user: UserType;
@@ -32,20 +32,11 @@ export default function CalendarSection({
     activeStartDate,
     setActiveStartDate
 }: CalendarSectionProps) {
-    const { register, unsupported, subscription, sendNotification } = useWebPush()
+    const { user: userAuth } = useAuth()
     const navigate = useNavigate()
     const todayDate = new Date()
     const [dateParam, setDateParam] = useState(new Date(workout.date));
 
-    useEffect(() => {
-        console.log("Web Push Subscription: ", subscription)
-
-        if(unsupported)
-            console.log("Web Push is not supported")
-        if(!subscription)
-            register()
-
-    }, []);
 
     useEffect(() => {
         if (dateParam < new Date(activeStartDate)) {
@@ -58,14 +49,17 @@ export default function CalendarSection({
     }, [workout.date]);
 
     const handleDateClick = (date: Date) => {
+        let url = '/workout'
 
-        if (date.getTime() === todayDate.getTime()) {
-            navigate(`/workout`)
+        if(userAuth?.id !== user.id) { // Si el usuario autenticado no es el mismo que el del perfil
+            url = `/users/${user.username}` + url
         }
-        else {
-            const formattedDate = formatDate(date)
-            navigate(`/workout/${formattedDate}`)
+        
+        if (date.getTime() !== todayDate.getTime()) {
+            url = url + `/${formatDate(date)}`
         }
+
+        navigate(url)
     }
 
     const handleViewChange = ({ activeStartDate }: { activeStartDate: Date | null }) => {
@@ -98,17 +92,6 @@ export default function CalendarSection({
         localStorage.setItem(user.username + "clipboard", JSON.stringify(workout))
         // handleSendNotification("Test Push", "This is a test push notification")
     }
-
-    // const handleSendNotification = (title: string, message: string) => {
-    //     console.log("Web Push Subscription: ", subscription)
-
-    //     if(unsupported)
-    //         console.log("Web Push is not supported")
-    //     if(!subscription)
-    //         register()
-
-    //     sendNotification(title, message)
-    // }
 
     const pasteWorkout = () => {
         const clipboardWorkoutJSON = localStorage.getItem(user.username + "clipboard")
@@ -156,22 +139,22 @@ export default function CalendarSection({
                 return 'current-day';
             }
             else {
-                    const foundWorkout = workoutList.find(workout => workout.date.includes(formattedDate))
+                const foundWorkout = workoutList.find(workout => workout.date.includes(formattedDate))
 
-                    if (foundWorkout) {
-                        switch (foundWorkout.type) {
-                            case 'Fullbody':
-                                return 'fullbody-day';
-                            case 'Empuje':
-                                return 'push-day';
-                            case 'Tire':
-                                return ' pull-day';
-                            case 'Pierna':
-                                return 'leg-day';
-                            case 'Movilidad':
-                                return 'mobility-day';
-                            case 'Cardio':
-                                return 'cardio-day';
+                if (foundWorkout) {
+                    switch (foundWorkout.type) {
+                        case 'Fullbody':
+                            return 'fullbody-day';
+                        case 'Empuje':
+                            return 'push-day';
+                        case 'Tire':
+                            return ' pull-day';
+                        case 'Pierna':
+                            return 'leg-day';
+                        case 'Movilidad':
+                            return 'mobility-day';
+                        case 'Cardio':
+                            return 'cardio-day';
                     }
                 }
             }

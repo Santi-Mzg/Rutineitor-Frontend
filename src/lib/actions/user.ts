@@ -4,21 +4,20 @@ import { UserType } from "../definitions";
 
 export const fetchUser = async (username: string) => {
     let user: UserType = {
-        _id: '',
+        id: '',
         username: '',
         email: '',
         age: '',
         weight: '',
         height: '',
         goal: '',
-        genre: '',
         isTrainer: false
     }
 
     try {
         const res = await fetchUserRequest(username)
-        user = res.data[0] || {};
-        console.log(JSON.stringify(user))
+        user = res.data || {};
+        console.log("AJAAAAAAAA"+JSON.stringify(res.data))
 
     } catch (error) {
         console.log(error)

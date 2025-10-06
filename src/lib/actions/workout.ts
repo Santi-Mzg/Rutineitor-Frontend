@@ -5,7 +5,7 @@ import { sendWebPush } from "./push";
 export const getCalendarWorkouts = async (date: string, id:string) => {
     try {
         const res = await getCalendarWorkoutsRequest(date, id)
-        
+        console.log(res.data)
         return Array.isArray(res.data) ? res.data : [];
         
     } catch (error) {

@@ -41,7 +41,7 @@ export default defineConfig({
       },
     })
   ],
-  base: '/Rutineitor/',
+  base: '/Rutineitor-Frontend/',
   server: {
     host: true,
   },

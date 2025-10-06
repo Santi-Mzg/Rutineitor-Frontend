@@ -84,8 +84,7 @@ useEffect(() => {
 
   const filteredusuarios = sortUsuarios(usuarios.filter(usuario => 
     usuario.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    usuario.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    usuario.genre?.toLowerCase().includes(searchTerm.toLowerCase())
+    usuario.email.toLowerCase().includes(searchTerm.toLowerCase())
   ))
 
   const handleSort = (field: SortField) => {
@@ -100,8 +99,8 @@ useEffect(() => {
   const handleDelete = async () => {
     if (toDeleteUser) {
       try {
-        console.log('Deleting user:', toDeleteUser._id)
-        await deleteUser(toDeleteUser._id);
+        console.log('Deleting user:', toDeleteUser.id)
+        await deleteUser(toDeleteUser.id);
 
       } catch (error) {
         console.log(error)
@@ -178,11 +177,10 @@ useEffect(() => {
             </TableHeader>
             <TableBody>
               {filteredusuarios.map((usuario) => (
-                <TableRow key={usuario._id}>
+                <TableRow key={usuario.id}>
                   <TableCell className="font-medium">{usuario.username}</TableCell>
                   <TableCell>{usuario.email}</TableCell>
                   <TableCell>{usuario.age}</TableCell>
-                  <TableCell>{usuario.genre}</TableCell>
                   <TableCell>{usuario.height}</TableCell>
                   <TableCell>{usuario.weight}</TableCell>
                   <TableCell>{usuario.isTrainer}</TableCell>
