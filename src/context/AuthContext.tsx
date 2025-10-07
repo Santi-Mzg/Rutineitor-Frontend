@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react"
 import { registerRequest, loginRequest, logoutRequest, modifyRequest, verifyTokenRequest } from '../api/auth.js';
-import { UserType } from '../lib/definitions.js';
+import { UserSigninPayloadType, UserSignupPayloadType, UserType } from '../lib/definitions.js';
 
 interface AuthContextType {
-    signup: (user: UserType) => Promise<void>;
-    signin: (user: UserType) => Promise<void>;
+    signup: (user: UserSignupPayloadType) => Promise<void>;
+    signin: (user: UserSigninPayloadType) => Promise<void>;
     signout: () => Promise<void>;
     modify: (user: UserType) => Promise<void>;
     loading: boolean;
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [errors, setErrors] = useState<string[]>([])
     const [loading, setLoading] = useState(true)
 
-    const signup = async (user: UserType) => {
+    const signup = async (user: UserSignupPayloadType) => {
         try {
             const res = await registerRequest(user)
             setUser(res.data)
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }
 
-    const signin = async (user: UserType) => {
+    const signin = async (user: UserSigninPayloadType) => {
         try {
             const res = await loginRequest(user)
             console.log("res.data "+JSON.stringify(res.data))

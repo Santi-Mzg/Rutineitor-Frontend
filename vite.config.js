@@ -31,6 +31,11 @@ export default defineConfig({
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable'
+          },
+          {
+            "src": "grand_logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
           }
         ],
         "background_color": "#ffffff",

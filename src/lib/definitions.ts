@@ -2,13 +2,29 @@ export type UserType = {
     id: string;
     username: string;
     email: string;
-    age: string;
-    weight: string;
-    height: string;
-    goal: string;
+    age?: string;
+    weight?: string;
+    height?: string;
+    goal?: string;
     isTrainer: boolean;
     updatedAt?: string;
     createdAt?: string;
+}
+
+export type UserSigninPayloadType = {
+    email: string;
+    password: string;
+}
+
+export type UserSignupPayloadType = {
+    username: string;
+    email: string;
+    password: string;
+    age?: string;
+    weight?: string;
+    height?: string;
+    goal?: string;
+    isTrainer: boolean;
 }
 
 export type ExerciseType = {
