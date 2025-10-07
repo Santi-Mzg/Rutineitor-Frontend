@@ -23,8 +23,6 @@ export type UserSignupPayloadType = {
     age?: string;
     weight?: string;
     height?: string;
-    goal?: string;
-    isTrainer: boolean;
 }
 
 export type ExerciseType = {

@@ -1,4 +1,3 @@
-import type React from "react"
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
@@ -19,12 +18,12 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: z.email("Dirección de correo electrónico no válida"),
+  password: z.string().min(5, "La contraseña debe tener al menos 5 caracteres"),
 })
 
 const recoverySchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.email("Dirección de correo electrónico no válida"),
 })
 
 type LoginFormData = z.infer<typeof loginSchema>
@@ -80,7 +79,7 @@ export default function LoginPage() {
                             className="rounded-3xl"
                         />
                     <div className="text-center">
-                        <CardTitle className="text-2xl font-bold">¡Bienvenido de nuevo!</CardTitle>
+                        <CardTitle className="text-2xl font-bold">¡Bienvenido!</CardTitle>
                         <CardDescription>Inicia sesión para continuar con tus rutinas</CardDescription>
                     </div>
                 </CardHeader>
@@ -112,7 +111,6 @@ export default function LoginPage() {
                         <Input
                             id="password"
                             type="password"
-                            placeholder="••••••••"
                             {...registerLogin("password")}
                         />
                         {loginErrors.password && (
@@ -123,7 +121,7 @@ export default function LoginPage() {
                     <Dialog open={isRecoveryOpen} onOpenChange={setIsRecoveryOpen}>
                         <DialogTrigger asChild>
                             <button type="button" className="text-sm text-[#F8A5A5] hover:underline">
-                            Olvidaste tu contraseña?
+                            ¿Olvidaste tu contraseña?
                             </button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[425px]">
