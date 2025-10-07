@@ -5,7 +5,6 @@ import { UserType, WorkoutType } from '../lib/definitions.ts';
 import CalendarSection from './CalendarSection.tsx';
 import { useParams } from 'react-router-dom';
 import { formatDate } from '../lib/utils.ts';
-import Toolbar from '../components/Toolbar.tsx';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchUser } from '../lib/actions/user.ts';
@@ -157,7 +156,6 @@ export default function UserMainPage() {
 
     return (
         <div className='w-screen'>
-            <Toolbar />
             {user && userClient && (
                 <div className='parent-section'>
                     <div className='header'>

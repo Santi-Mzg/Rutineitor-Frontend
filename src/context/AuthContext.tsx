@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const signout = async () => {
         try {
-            const res = await logoutRequest()
+            await logoutRequest()
             setUser(null)
             setIsAuthenticated(false)
 

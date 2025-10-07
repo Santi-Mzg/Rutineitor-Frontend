@@ -14,9 +14,9 @@ import { useAuth } from '../context/AuthContext'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Toolbar() {
+function Navbar() {
   const { handleSubmit } = useForm()
-  const { signout, user, isAuthenticated } = useAuth()
+  const { signout, user, isAuthenticated, loading } = useAuth()
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -27,8 +27,8 @@ function Toolbar() {
   })
 
   return (
-    <nav className="navbar navbar-expand-lg bg-primary">
-      <div className="container-fluid flex justify-between items-center mx-auto">
+    <nav className="navbar navbar-expand-lg bg-primary z-50 flex-shrink-0">
+      <div className="container-fluid flex justify-between items-center mx-auto h-full">
         {/* Desktop Navigation */}
         <Link
           to="/workout"
@@ -73,7 +73,7 @@ function Toolbar() {
           <h2
             className="text-white hover:text-gray-100 transition-colors"
           >
-            {user ? user.username : "Usuario"}
+            {user ? user.username : ""}
           </h2>
 
           <form className="hidden md:flex" onSubmit={onSubmit}>
@@ -145,4 +145,4 @@ function Toolbar() {
   )
 }
 
-export default Toolbar
+export default Navbar

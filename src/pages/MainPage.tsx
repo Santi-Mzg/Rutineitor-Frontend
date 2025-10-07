@@ -6,10 +6,10 @@ import { useAuth } from '../context/AuthContext.jsx';
 import CalendarSection from './CalendarSection.tsx';
 import { useParams } from 'react-router-dom';
 import { formatDate } from '../lib/utils.ts';
-import Toolbar from '../components/Toolbar.tsx';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useWebPush } from '../context/WebpushContext.tsx';
+import LoadingOverlay from '../components/ui/loading-overlay.tsx';
 
 export default function MainPage() {
 
@@ -83,6 +83,7 @@ export default function MainPage() {
 
     useEffect(() => {
         const fetchWorkouts = async (date: string, user_id: string) => {
+            setLoading(true);
             try {
 
                 const data = await getCalendarWorkouts(date, user_id);
@@ -147,13 +148,10 @@ export default function MainPage() {
     const [expandedCalendarPanel, setExpandedCalendarPanel] = useState<boolean>(true);
 
 
-    if (loading) {
-        return <div>Loading...</div>; // Puedes mostrar un loader o mensaje mientras se cargan los datos
-    }
-
     return (
+        <>{loading ? <LoadingOverlay isLoading={loading} message="Cargando rutinas..." size="lg" variant="overlay" /> 
+        :
         <div className='w-screen'>
-            <Toolbar />
             {user && (
                 <div className='parent-section'>
                     <div className='header'>
@@ -179,7 +177,7 @@ export default function MainPage() {
                     )}
                 </div>
             )}
-
-        </div>
+        </div>}
+        </>
     )
 }

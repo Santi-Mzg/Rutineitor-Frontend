@@ -1,16 +1,12 @@
-"use client"
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { PersonalInfo } from "./personal-info"
 import { ExerciseRecords } from "./exercise-records.jsx"
 import { Milestones } from "./milestones"
-import Toolbar from "../components/Toolbar.js"
 
 export default function ProfilePage() {
 
   return (
     <>
-      <Toolbar />
       <div className="min-h-screen bg-[#98D8C8] p-4 md:p-8">
         <div className="mx-auto max-w-5xl space-y-8">
           <Tabs defaultValue="personal" className="w-full">

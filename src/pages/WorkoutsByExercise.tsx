@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Toolbar from '../components/Toolbar.tsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
 import { fetchWorkoutsByExercise } from '../lib/actions/workout.ts';
 import { Link } from 'react-router-dom';
@@ -69,7 +68,6 @@ export default function WorkoutsByExercise() {
 
     return (
         <div className='w-screen'>
-            <Toolbar />
             <div className='parent-section py-4 flex-col flex justify-center items-center'>
                 <div className='header'>
                     <DropDownWithSearch onChange={(option: any) => setSelectedExercise(option.label)} options={exercises} text={selectedExercise ? selectedExercise : "Elegir Ejercicio..."} />

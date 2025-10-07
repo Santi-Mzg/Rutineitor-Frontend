@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { arrayTypes } from '../lib/utils.ts';
-import Toolbar from '../components/Toolbar.tsx';
 import DropDownWithSearch from '../components/DropDownWithSearch.jsx';
 import { fetchWorkoutsByType } from '../lib/actions/workout.ts';
 import { useAuth } from '../context/AuthContext.tsx';
 import { Card, CardContent } from '../components/ui/card.tsx';
-import { BlockType, ExerciseType, WorkoutType } from '../lib/definitions.ts';
+import {  WorkoutType } from '../lib/definitions.ts';
 import { Link } from 'react-router-dom';
 
 export default function WorkoutsByType() {    
@@ -45,7 +44,6 @@ export default function WorkoutsByType() {
 
     return (
         <div className='w-screen'>
-            <Toolbar />
             <div className='parent-section py-4 flex-col flex justify-center items-center'>
                 <div className='header'>
                     <DropDownWithSearch onChange={(option: any) => setSelectedType(option.value)} options={arrayTypes} text={selectedType ? selectedType : "Elegir Entrenamiento..."} />

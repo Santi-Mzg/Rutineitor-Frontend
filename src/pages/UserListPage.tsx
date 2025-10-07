@@ -23,7 +23,6 @@ import {
   DialogTitle,
 } from "../components/ui/dialog"
 import { deleteUser, fetchUsers } from '../lib/actions/user'
-import Toolbar from '../components/Toolbar'
 
 
 export default function UsersList() {
@@ -111,7 +110,6 @@ useEffect(() => {
 
   return (
     <div className='w-screen'>
-      <Toolbar />
       <div className="container mx-auto py-10">
         <div className="rounded-md border">
           <div className="p-4 flex items-center justify-between gap-4 border-b">
