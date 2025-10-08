@@ -7,13 +7,13 @@ export default function ProfilePage() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#98D8C8] p-4 md:p-8">
-        <div className="mx-auto max-w-5xl space-y-8">
+      <div className="mt-20 min-h-screen bg-[#98D8C8] p-4 md:p-8">
+        <div className="mx-auto space-y-8">
           <Tabs defaultValue="personal" className="w-full">
             <TabsList className="grid w-full grid-cols-3 bg-white/20">
-              <TabsTrigger value="personal" className="text-xs sm:text-sm">Personal Info</TabsTrigger>
-              <TabsTrigger value="records" className="text-xs sm:text-sm">Exercise Records</TabsTrigger>
-              <TabsTrigger value="milestones" className="text-xs sm:text-sm">Milestones</TabsTrigger>
+              <TabsTrigger value="personal" className="text-xs sm:text-sm">Información Personal</TabsTrigger>
+              <TabsTrigger value="records" className="text-xs sm:text-sm">Records Personales</TabsTrigger>
+              <TabsTrigger value="milestones" className="text-xs sm:text-sm">Metas</TabsTrigger>
             </TabsList>
             <TabsContent value="personal">
               <PersonalInfo/>

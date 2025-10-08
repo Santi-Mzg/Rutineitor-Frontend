@@ -11,6 +11,7 @@ import UsersList from './pages/UserListPage';
 import UserMainPage from './pages/UserMainPage';
 import ProtectedRoute from './ProtectedRoute';
 import Layout from './Layout';
+import Navbar from './components/Navbar';
 
 function App() {
 

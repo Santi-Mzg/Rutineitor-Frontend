@@ -86,6 +86,7 @@ button:focus-visible {
   display: flex;
   flex-flow: row wrap;
   box-sizing: border-box;
+  margin-top: 30px;
 }
 
 .header {
@@ -103,7 +104,7 @@ button:focus-visible {
 
 .more-info-button {
   position: absolute;
-  top: 80px; /* Distancia desde la parte superior */
+  top: 10px; /* Distancia desde la parte superior */
   right: 5px; /* Distancia desde la derecha */
   width: 30px;
   height: 30px;
@@ -203,6 +204,7 @@ button:focus-visible {
     align-items: flex-start;
     height: 90vh;
     padding: 10px;
+    margin-top: 55px;
   }
 
   .routine-section-expanded,

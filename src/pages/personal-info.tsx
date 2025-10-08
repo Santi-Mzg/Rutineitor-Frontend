@@ -23,14 +23,14 @@ export function PersonalInfo() {
   return (
     <Card>
       <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-        <CardTitle className="text-xl">Personal Information</CardTitle>
+        <CardTitle className="text-xl">Información Personal</CardTitle>
         
       </CardHeader>
       <form onSubmit={onSubmit}>
         <CardContent className="space-y-4">
           <div className="grid gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">Nombre de Usuario</Label>
               <Input
                 {...register('username')}
                 id="username"
@@ -40,7 +40,7 @@ export function PersonalInfo() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="age">Age</Label>
+                <Label htmlFor="age">Edad</Label>
                 <Input
                   {...register('age')}
                   id="age"
@@ -49,7 +49,7 @@ export function PersonalInfo() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="weight">Weight (kg)</Label>
+                <Label htmlFor="weight">Peso corporal (kg)</Label>
                 <Input
                   {...register('weight')}
                   id="weight"
@@ -58,7 +58,7 @@ export function PersonalInfo() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="height">Height (cm)</Label>
+                <Label htmlFor="height">Altura (cm)</Label>
                 <Input
                   {...register('height')}
                   id="height"
@@ -68,7 +68,7 @@ export function PersonalInfo() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="goal">Fitness Goal</Label>
+              <Label htmlFor="goal">Objetivo Deportivo</Label>
               <Input
                 {...register('goal')}
                 id="goal"

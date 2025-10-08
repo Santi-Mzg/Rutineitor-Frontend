@@ -23,17 +23,23 @@ function Navbar() {
   const onSubmit = handleSubmit(async () => {
     localStorage.clear();
     signout()
+    setIsOpen(false); 
     navigate('/login')
   })
 
   return (
-    <nav className="navbar navbar-expand-lg bg-primary z-50 flex-shrink-0">
-      <div className="container-fluid flex justify-between items-center mx-auto h-full">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-[#7AC7B5] shadow-md">
+      <div className="flex justify-between items-center px-4 w-full">
         {/* Desktop Navigation */}
         <Link
           to="/workout"
+          className='mr-2 flex items-center'
         >
-          <h1 className="navbar-brand w-full text-white hover:text-gray-300 transition-colors font-bold">Rutineitor</h1>
+          <img
+              src="/Rutineitor-Frontend/grand_logo_sm.png"
+              alt="Rutineitor Logo"
+              className="rounded-2xl"
+          />
         </Link>
         <div className="hidden md:flex items-center gap-6 text-sm">
           {isAuthenticated && (
@@ -71,13 +77,13 @@ function Navbar() {
         {/* Right side - User section */}
         <div className="ml-auto flex items-center gap-2 px-3 py-3">
           <h2
-            className="text-white hover:text-gray-100 transition-colors"
+            className="text-white font-bold hover:text-gray-100 transition-colors"
           >
             {user ? user.username : ""}
           </h2>
 
           <form className="hidden md:flex" onSubmit={onSubmit}>
-            <Button className="btn btn-secondary my-0 my-sm-0 py-1 border-transparent text-gray-600" type="submit">
+            <Button className="btn btn-secondary my-0 my-sm-0 py-1 border-transparent bg-transparent text-[#f3969a]" type="submit">
                 <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '30px' }} />
             </Button>
           </form>
@@ -131,8 +137,8 @@ function Navbar() {
                       </Link>
                   )}
                   <form className="d-flex" onSubmit={onSubmit}>
-                    <Button className="btn btn-secondary my-0 my-sm-0 py-1 border-transparent text-gray-600" type="submit">
-                        <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '30px' }} />
+                    <Button className="btn btn-secondary my-0 my-sm-0 py-1 bg-transparent border-transparent text-[#f3969a]" type="submit">
+                      <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '30px' }} />
                     </Button>
                   </form>
                 </div>

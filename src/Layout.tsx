@@ -9,15 +9,7 @@ export default function Layout() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="relative flex-1">
-        <LoadingOverlay
-          isLoading={loading}
-          message="Cargando..."
-          size="lg"
-          variant="overlay"
-        />
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   )
 }

@@ -149,8 +149,7 @@ export default function MainPage() {
 
 
     return (
-        <>{loading ? <LoadingOverlay isLoading={loading} message="Cargando rutinas..." size="lg" variant="overlay" /> 
-        :
+
         <div className='w-screen'>
             {user && (
                 <div className='parent-section'>
@@ -177,7 +176,6 @@ export default function MainPage() {
                     )}
                 </div>
             )}
-        </div>}
-        </>
+        </div>
     )
 }

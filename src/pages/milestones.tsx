@@ -110,7 +110,7 @@ export function Milestones() {
   return (
     <Card>
       <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-        <CardTitle className="text-xl">Milestones</CardTitle>
+        <CardTitle className="text-xl">Metas</CardTitle>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button className="bg-[#F8A5A5] text-white hover:bg-[#F8A5A5]/90">
