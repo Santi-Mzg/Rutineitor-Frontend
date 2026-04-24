@@ -126,6 +126,26 @@
       "weighted": true
     },
     {
+      "label": "Compresiones Abd Rolo Cajon",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Compresiones Abd Rolo Sentado",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Compresiones Abd Sentado",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Compresiones Abd Sentado Split",
+      "isometric": false,
+      "weighted": false
+    },
+    {
       "label": "Correr",
       "isometric": false,
       "weighted": false
@@ -386,12 +406,22 @@
       "weighted": false
     },
     {
-      "label": "Flexiones Planche",
+      "label": "Flexiones Tuck Planche",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Flexiones Pseudo Planche",
       "isometric": false,
       "weighted": false
     },
     {
       "label": "Flexiones Pyke",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Pyke to Handstand",
       "isometric": false,
       "weighted": false
     },
@@ -411,47 +441,47 @@
       "weighted": false
     },
     {
-      "label": "Fondo",
+      "label": "Fondos",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Fondo Anillas",
+      "label": "Fondos Anillas",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Fondo Anillas Arquero",
+      "label": "Fondos Anillas Arquero",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Fondo Anillas Asistido con Banda",
+      "label": "Fondos Anillas Asistido con Banda",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Fondo Anillas Resistencia con Banda",
+      "label": "Fondos Anillas Resistencia con Banda",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Fondo Asistido con Banda",
+      "label": "Fondos Asistido con Banda",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Fondo Barra Horizontal",
+      "label": "Fondos Barra Horizontal",
       "isometric": false,
       "weighted": true
     },
     {
-      "label": "Fondo Hefesto",
+      "label": "Fondos Hefesto",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Fondo Resistencia con Banda",
+      "label": "Fondos Resistencia con Banda",
       "isometric": false,
       "weighted": false
     },
@@ -496,6 +526,16 @@
       "weighted": false
     },
     {
+      "label": "Front Lever Remos",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Front Lever Hip Pulls",
+      "isometric": true,
+      "weighted": false
+    },
+    {
       "label": "Front Lever Una Pierna",
       "isometric": true,
       "weighted": false
@@ -511,17 +551,32 @@
       "weighted": false
     },
     {
-      "label": "Handstand 1 Brazo Finger Sup",
+      "label": "Handstand 1 Arm 1 Finger Sup",
       "isometric": true,
       "weighted": false
     },
     {
-      "label": "Handstand 1 Brazo Finger Sup Side to Side",
+      "label": "Handstand 1 Arm 2 Finger Sup",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Handstand 1 Arm 3 Finger Sup",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Handstand 1 Arm 5 Finger Sup",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Handstand 1 Arm Side to Side",
       "isometric": false,
       "weighted": false
     },
     {
-      "label": "Handstand 1 Brazo Finger Sup Splits",
+      "label": "Handstand 1 Arm Finger Sup Splits",
       "isometric": false,
       "weighted": false
     },
@@ -541,7 +596,7 @@
       "weighted": false
     },
     {
-      "label": "Handstand Scorpion",
+      "label": "Handstand Mexican",
       "isometric": true,
       "weighted": false
     },
@@ -556,7 +611,7 @@
       "weighted": false
     },
     {
-      "label": "Handstand Stalder Press",
+      "label": "Stalder Press",
       "isometric": false,
       "weighted": false
     },
@@ -576,7 +631,7 @@
       "weighted": false
     },
     {
-      "label": "Handstand to Scorpion",
+      "label": "Handstand to Bent Arm Planche",
       "isometric": false,
       "weighted": false
     },
@@ -618,6 +673,16 @@
     {
       "label": "L-sit",
       "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "L-Sit to Tuck Planche",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "L-Sit to V-sit",
+      "isometric": false,
       "weighted": false
     },
     {
@@ -672,6 +737,11 @@
     },
     {
       "label": "Multipresa Romo Avanzado",
+      "isometric": true,
+      "weighted": true
+    },
+    {
+      "label": "Regleta",
       "isometric": true,
       "weighted": true
     },
@@ -942,6 +1012,26 @@
     },
     {
       "label": "Skin the Cat",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Stalder Bottom Hold",
+      "isometric": true,
+      "weighted": false
+    },
+    {
+      "label": "Stalder Half Press",
+      "isometric": false,
+      "weighted": false
+    },
+        {
+      "label": "Stalder Half Negative",
+      "isometric": false,
+      "weighted": false
+    },
+    {
+      "label": "Stalder Negative",
       "isometric": false,
       "weighted": false
     },
